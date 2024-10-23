@@ -17,6 +17,13 @@ function App() {
         end: new Date(),
         allDay: false,
       },
+      {
+        title: "Make lunch",
+        description: "Make some lunch so that I don't go hungry",
+        start: new Date(),
+        end: new Date(),
+        allDay: false,
+      },
     ],
     [],
   );
@@ -42,7 +49,13 @@ function App() {
             <IconCalendarPlus size="1em" /> Add event
           </Button>
         </header>
-        <div>
+        <div
+          style={{
+            display: "grid",
+            gap: 8,
+            alignContent: "start",
+          }}
+        >
           {calendarEvents.map((event) => (
             <CalendarEventRow event={event} />
           ))}

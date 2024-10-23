@@ -15,14 +15,20 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
 
         background: "white",
 
-        display: "flex",
-        gap: 8,
+        display: "grid",
+        columnGap: 16,
+        gridTemplateColumns: "[date] auto [time] auto [detail] 1fr [edit] auto",
+        alignItems: "center",
       }}
     >
       <div
         style={{
+          gridArea: "date",
+
           margin: "8px 0",
-          padding: "4px 16px",
+          padding: "4px 18px",
+
+          color: "hsl(0 0% 30%)",
           borderRight: "solid 1px hsl(0 0% 90%)",
 
           display: "flex",
@@ -30,7 +36,13 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
           alignItems: "center",
         }}
       >
-        <div style={{ lineHeight: 1, fontSize: 12, fontWeight: 600 }}>
+        <div
+          style={{
+            lineHeight: 1,
+            fontSize: 12,
+            fontWeight: 600,
+          }}
+        >
           {event.start.toLocaleDateString(locales, { weekday: "short" })}
         </div>
         <div style={{ lineHeight: 1, fontSize: 28, fontWeight: 700 }}>
@@ -40,8 +52,8 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
 
       <div
         style={{
-          margin: "8px 0",
-          padding: "4px 16px",
+          gridArea: "time",
+
           display: "flex",
           alignItems: "center",
         }}
@@ -51,8 +63,8 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
 
       <div
         style={{
-          margin: "8px 0",
-          padding: "4px 16px",
+          gridArea: "detail",
+
           display: "grid",
           gridTemplateRows: "auto 1fr",
         }}
@@ -63,7 +75,7 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
         </div>
       </div>
 
-      <div>
+      <div style={{ gridArea: "edit", alignSelf: "start", padding: 8 }}>
         <Button>
           <IconPencil size="1em" />
         </Button>

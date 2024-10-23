@@ -2,10 +2,17 @@ import { IconPencil } from "@tabler/icons-react";
 import type { CalendarEvent } from "../types";
 import Button from "./Button";
 import TimeSpan from "./TimeSpan";
+import { MouseEventHandler } from "react";
 
 const locales = navigator.languages;
 
-export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
+export default function CalendarEventRow({
+  event,
+  onEditClick,
+}: {
+  event: CalendarEvent;
+  onEditClick?: MouseEventHandler;
+}) {
   return (
     <div
       style={{
@@ -76,7 +83,7 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
       </div>
 
       <div style={{ gridArea: "edit", alignSelf: "start", padding: 8 }}>
-        <Button>
+        <Button onClick={onEditClick}>
           <IconPencil size="1em" />
         </Button>
       </div>

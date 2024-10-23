@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
 
-    font-family: "Open Sans";
+    font-family: "Open Sans", sans;
   }
 
   h1, h2, h3, h4, p {

@@ -7,7 +7,7 @@ const Overlay = styled.div`
   bottom: 0;
   left: 0;
 
-  background: hsl(0 0% 0% / 75%);
+  background: hsl(0 0% 0% / 40%);
 `;
 
 export default Overlay;

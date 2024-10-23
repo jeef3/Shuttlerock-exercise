@@ -2,6 +2,7 @@ import { MouseEventHandler } from "react";
 
 import Modal from "../components/Modal";
 import ModalHeader from "../components/ModalHeader";
+import ModalFooter from "../components/ModalFooter";
 
 export default function AddEditEventModal({
   onClose,
@@ -10,8 +11,13 @@ export default function AddEditEventModal({
 }) {
   return (
     <Modal>
-      <ModalHeader title="Add Event" onClose={onClose} />
-      HI
+      <form>
+        <ModalHeader title="Add Event" onClose={onClose} />
+
+        <div>FORM</div>
+
+        <ModalFooter />
+      </form>
     </Modal>
   );
 }

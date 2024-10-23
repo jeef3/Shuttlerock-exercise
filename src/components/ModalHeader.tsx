@@ -1,6 +1,7 @@
-import { IconSquareRoundedX } from "@tabler/icons-react";
-import Button from "./Button";
 import { MouseEventHandler } from "react";
+import { IconX } from "@tabler/icons-react";
+
+import Button from "./Button";
 
 export default function ModalHeader({
   title,
@@ -12,7 +13,7 @@ export default function ModalHeader({
   return (
     <header
       style={{
-        marginBottom: 16,
+        padding: 16,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -20,7 +21,7 @@ export default function ModalHeader({
     >
       <h2>{title}</h2>
       <Button onClick={onClose}>
-        <IconSquareRoundedX size="1em" />
+        <IconX size="1em" />
       </Button>
     </header>
   );

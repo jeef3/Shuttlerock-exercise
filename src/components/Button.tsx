@@ -51,6 +51,7 @@ const Button = styled.button<ButtonProps>`
 
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 
   transition: all 100ms ease-in-out;

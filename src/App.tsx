@@ -33,7 +33,7 @@ function App() {
   );
 
   const [showAddEditEventModal, closeAddEdeitEventModal] = useModal(
-    () => <AddEditEventModal />,
+    () => <AddEditEventModal onClose={closeAddEdeitEventModal} />,
     [],
   );
 

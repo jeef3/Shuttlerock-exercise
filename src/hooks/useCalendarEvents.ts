@@ -5,13 +5,13 @@ import { api } from "../api";
 export function useCalendarEvents() {
   return useQuery({
     queryKey: ["events"],
-    queryFn: () => api.events(),
+    queryFn: () => api.events.list(),
   });
 }
 
-export function useMutateCalendarEvents() {
+export function useMutateCalendarEvent() {
   return useMutation({
     mutationKey: ["events"],
-    mutationFn: () => api.events(),
+    mutationFn: (event) => api.events.update(event),
   });
 }

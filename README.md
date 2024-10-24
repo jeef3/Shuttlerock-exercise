@@ -6,8 +6,14 @@ Install dependencies
 $ pnpm install
 ```
 
-And start the dev server
+Start the dev server
 
 ``` sh
 $ pnpm run dev
+```
+
+And start the JSON DB server
+
+``` sh
+$ pnpm run server
 ```

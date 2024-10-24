@@ -1,8 +1,17 @@
-import { IconPencil } from "@tabler/icons-react";
-import type { CalendarEvent } from "../types";
+import { MouseEventHandler, useCallback, useMemo } from "react";
+import { useModal } from "react-modal-hook";
+import { IconPencil, IconTrash } from "@tabler/icons-react";
+
 import Button from "./Button";
 import TimeSpan from "./TimeSpan";
-import { MouseEventHandler } from "react";
+
+import type { CalendarEvent } from "../types";
+import DeleteCalendarEventModal from "../modals/DeleteCalendarEventModal";
+import {
+  CalendarDate,
+  CalendarRowContainer,
+} from "./atoms/CalendarEventRowAtoms";
+import { isToday } from "../util/date";
 
 const locales = navigator.languages;
 
@@ -13,36 +22,23 @@ export default function CalendarEventRow({
   event: CalendarEvent;
   onEditClick?: MouseEventHandler;
 }) {
+  const today = useMemo(() => isToday(new Date(event.start)), [event.start]);
+
+  const [showDeleteCalendarEventModal, closeDeleteCalendarEventModal] =
+    useModal(() => (
+      <DeleteCalendarEventModal
+        event={event}
+        onClose={closeDeleteCalendarEventModal}
+      />
+    ));
+
+  const handleDeleteClick = useCallback(() => {
+    showDeleteCalendarEventModal();
+  }, [showDeleteCalendarEventModal]);
+
   return (
-    <div
-      style={{
-        color: "hsl(0 0% 20%)",
-        border: "solid 1px hsl(0 0% 90%)",
-        borderRadius: 8,
-
-        background: "white",
-
-        display: "grid",
-        columnGap: 16,
-        gridTemplateColumns: "[date] auto [time] auto [detail] 1fr [edit] auto",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          gridArea: "date",
-
-          margin: "8px 0",
-          padding: "4px 18px",
-
-          color: "hsl(0 0% 30%)",
-          borderRight: "solid 1px hsl(0 0% 90%)",
-
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+    <CalendarRowContainer>
+      <CalendarDate today={today}>
         <div
           style={{
             lineHeight: 1,
@@ -57,7 +53,7 @@ export default function CalendarEventRow({
         <div style={{ lineHeight: 1, fontSize: 28, fontWeight: 700 }}>
           {new Date(event.start).getDate()}
         </div>
-      </div>
+      </CalendarDate>
 
       <div
         style={{
@@ -84,11 +80,22 @@ export default function CalendarEventRow({
         </div>
       </div>
 
-      <div style={{ gridArea: "edit", alignSelf: "start", padding: 8 }}>
-        <Button onClick={onEditClick}>
+      <div
+        style={{
+          gridArea: "edit",
+          alignSelf: "start",
+          padding: 8,
+          display: "flex",
+          gap: 4,
+        }}
+      >
+        <Button onClick={onEditClick} title="Create calendar event">
           <IconPencil size="1em" />
         </Button>
+        <Button onClick={handleDeleteClick} title="Delete calendar event">
+          <IconTrash size="1em" />
+        </Button>
       </div>
-    </div>
+    </CalendarRowContainer>
   );
 }

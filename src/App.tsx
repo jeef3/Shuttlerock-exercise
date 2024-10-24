@@ -9,6 +9,7 @@ import AddEditEventModal from "./modals/AddEditEventModal";
 import { useCalendarEvents } from "./hooks/useCalendarEvents";
 
 import type { CalendarEvent } from "./types";
+import { sort_eventByStartDate } from "./util/date";
 
 function App() {
   const { data: calendarEvents } = useCalendarEvents();
@@ -69,13 +70,15 @@ function App() {
         >
           {!calendarEvents
             ? "Loading"
-            : calendarEvents.map((event) => (
-                <CalendarEventRow
-                  key={event.id}
-                  event={event}
-                  onEditClick={() => handleEditClick(event)}
-                />
-              ))}
+            : calendarEvents
+                .sort(sort_eventByStartDate)
+                .map((event) => (
+                  <CalendarEventRow
+                    key={event.id}
+                    event={event}
+                    onEditClick={() => handleEditClick(event)}
+                  />
+                ))}
         </div>
       </AppBody>
     </AppContainer>

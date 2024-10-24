@@ -16,7 +16,7 @@ export default function AddEditEventModal({
   event?: CalendarEvent | null;
   onClose?: () => void;
 }) {
-  const { mutateAsync: updateEvent } = useMutateCalendarEvent();
+  const { mutateAsync: addOrUpdateEvent } = useMutateCalendarEvent();
 
   const { formData, formState, handleChange, handleSubmit, setError } =
     useForm<CalendarEvent>(event);
@@ -25,13 +25,13 @@ export default function AddEditEventModal({
     (e: FormEvent) =>
       void handleSubmit(async (event: CalendarEvent) => {
         try {
-          await updateEvent(event);
+          await addOrUpdateEvent(event);
           onClose?.();
         } catch {
           setError("__root__", "Something went wrong, please try again.");
         }
       })(e),
-    [handleSubmit, onClose, setError, updateEvent],
+    [handleSubmit, onClose, setError, addOrUpdateEvent],
   );
 
   return (

@@ -1,17 +1,19 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactElement } from "react";
 import Button from "./Button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 
-export default function ModalFooter({
-  onClick,
-}: {
-  onClick?: MouseEventHandler;
-}) {
+export default function ModalFooter({ buttons }: { buttons: ReactElement }) {
   return (
-    <div style={{ display: "grid", padding: 16, background: "hsl(0 0% 95%)" }}>
-      <Button $type="action" onClick={onClick}>
-        <IconDeviceFloppy size="1em" /> Save
-      </Button>
+    <div
+      style={{
+        padding: 16,
+        background: "hsl(0 0% 95%)",
+        display: "grid",
+        gridAutoFlow: "column",
+        gap: 16,
+      }}
+    >
+      {buttons}
     </div>
   );
 }

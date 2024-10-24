@@ -7,12 +7,12 @@ export default defineConfig({
   plugins: [
     react(),
 
-    basicSsl({
-      domains: ["localhost"],
-    }),
+    // basicSsl({
+    //   domains: ["localhost"],
+    // }),
   ],
 
-  server: {
-    https: {},
-  },
+  // server: {
+  //   https: {},
+  // },
 });

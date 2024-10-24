@@ -21,7 +21,7 @@ function getBaseColor({ $type = "transparent" }: ButtonProps) {
 function getForegroundColor({ $type = "transparent" }: ButtonProps) {
   switch ($type) {
     case "transparent":
-      return "color-mix(in hsl, var(--base), black 40%)";
+      return "color-mix(in hsl, var(--base), black 60%)";
     case "action":
       return "white";
     case "destructive":

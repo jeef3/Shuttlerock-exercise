@@ -50,10 +50,12 @@ export default function CalendarEventRow({
             fontWeight: 600,
           }}
         >
-          {event.start.toLocaleDateString(locales, { weekday: "short" })}
+          {new Date(event.start).toLocaleDateString(locales, {
+            weekday: "short",
+          })}
         </div>
         <div style={{ lineHeight: 1, fontSize: 28, fontWeight: 700 }}>
-          {event.start.getDate()}
+          {new Date(event.start).getDate()}
         </div>
       </div>
 
@@ -65,7 +67,7 @@ export default function CalendarEventRow({
           alignItems: "center",
         }}
       >
-        <TimeSpan start={event.start} end={event.end} />
+        <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />
       </div>
 
       <div

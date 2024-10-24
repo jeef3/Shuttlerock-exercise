@@ -1,43 +1,26 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useModal } from "react-modal-hook";
+import { IconCalendar, IconCalendarPlus } from "@tabler/icons-react";
 
 import { AppBody, AppContainer, AppHeader } from "./components/atoms/AppAtoms";
-
-import type { CalendarEvent } from "./types";
 import CalendarEventRow from "./components/CalendarEventRow";
-import { IconCalendar, IconCalendarPlus } from "@tabler/icons-react";
 import Button from "./components/Button";
 import AddEditEventModal from "./modals/AddEditEventModal";
+import { useCalendarEvents } from "./hooks/useCalendarEvents";
+
+import type { CalendarEvent } from "./types";
 
 function App() {
-  const calendarEvents = useMemo<CalendarEvent[]>(
-    () => [
-      {
-        id: "f6764e3f-e614-45f7-931b-9a078407315a",
-        title: "Make lunch",
-        description: "Make some lunch so that I don't go hungry",
-        start: new Date(),
-        end: new Date(),
-        allDay: false,
-      },
-      {
-        id: "b19c5021-0ffc-4d6a-901b-c038b51399bc",
-        title: "Make lunch",
-        description: "Make some lunch so that I don't go hungry",
-        start: new Date(),
-        end: new Date(),
-        allDay: false,
-      },
-    ],
-    [],
-  );
+  const { data: calendarEvents } = useCalendarEvents();
 
   const [showAddEditEventModal, closeAddEdeitEventModal] = useModal(
     () => <AddEditEventModal onClose={closeAddEdeitEventModal} />,
     [],
   );
 
-  const handleAddClick = useCallback(() => {}, []);
+  const handleAddClick = useCallback(() => {
+    showAddEditEventModal();
+  }, [showAddEditEventModal]);
 
   const handleEditClick = useCallback(
     (event: CalendarEvent) => {
@@ -56,6 +39,7 @@ function App() {
         <header
           style={{
             display: "flex",
+            alignItems: "center",
             justifyContent: "space-between",
           }}
         >
@@ -74,13 +58,15 @@ function App() {
             alignContent: "start",
           }}
         >
-          {calendarEvents.map((event) => (
-            <CalendarEventRow
-              key={event.title}
-              event={event}
-              onEditClick={() => handleEditClick(event)}
-            />
-          ))}
+          {!calendarEvents
+            ? "Loading"
+            : calendarEvents.map((event) => (
+                <CalendarEventRow
+                  key={event.id}
+                  event={event}
+                  onEditClick={() => handleEditClick(event)}
+                />
+              ))}
         </div>
       </AppBody>
     </AppContainer>

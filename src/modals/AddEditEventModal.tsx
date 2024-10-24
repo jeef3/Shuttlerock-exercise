@@ -5,6 +5,8 @@ import ModalHeader from "../components/ModalHeader";
 import ModalFooter from "../components/ModalFooter";
 import useForm from "../hooks/useForm";
 import { CalendarEvent } from "../types";
+import Button from "../components/Button";
+import { IconDeviceFloppy } from "@tabler/icons-react";
 
 export default function AddEditEventModal({
   onClose,
@@ -84,7 +86,16 @@ export default function AddEditEventModal({
           </label>
         </div>
 
-        <ModalFooter />
+        <ModalFooter
+          buttons={
+            <>
+              <Button onClick={onClose}>Close</Button>
+              <Button $type="action" type="submit">
+                <IconDeviceFloppy size="1em" /> Save
+              </Button>
+            </>
+          }
+        />
       </form>
     </Modal>
   );

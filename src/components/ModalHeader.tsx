@@ -2,6 +2,15 @@ import { MouseEventHandler } from "react";
 import { IconX } from "@tabler/icons-react";
 
 import Button from "./Button";
+import styled from "styled-components";
+
+const Container = styled.header`
+  padding: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default function ModalHeader({
   title,
@@ -11,18 +20,12 @@ export default function ModalHeader({
   onClose?: MouseEventHandler;
 }) {
   return (
-    <header
-      style={{
-        padding: 16,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
+    <Container>
       <h2>{title}</h2>
+
       <Button onClick={onClose}>
         <IconX size="1em" />
       </Button>
-    </header>
+    </Container>
   );
 }

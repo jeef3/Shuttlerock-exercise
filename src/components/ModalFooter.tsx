@@ -1,19 +1,16 @@
-import { MouseEventHandler, ReactElement } from "react";
-import Button from "./Button";
-import { IconDeviceFloppy } from "@tabler/icons-react";
+import { ReactElement } from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  padding: 16px;
+
+  background: hsl(0 0% 95%);
+
+  display: grid;
+  grid-auto-flow: column;
+  gap: 16px;
+`;
 
 export default function ModalFooter({ buttons }: { buttons: ReactElement }) {
-  return (
-    <div
-      style={{
-        padding: 16,
-        background: "hsl(0 0% 95%)",
-        display: "grid",
-        gridAutoFlow: "column",
-        gap: 16,
-      }}
-    >
-      {buttons}
-    </div>
-  );
+  return <Container>{buttons}</Container>;
 }

@@ -1,27 +1,40 @@
 import { IconClockHour4Filled } from "@tabler/icons-react";
+import styled from "styled-components";
 
-const locales = navigator.languages;
+const Container = styled.div`
+  color: hsl(0 0% 70%);
+  font-size: 12px;
 
-export default function TimeSpan({ start, end }: { start: Date; end: Date }) {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
+const FORMAT_OPTIONS: Intl.DateTimeFormatOptions = { timeStyle: "short" };
+
+export default function TimeSpan({
+  start,
+  end,
+  hour12 = true,
+}: {
+  start: Date;
+  end: Date;
+  hour12?: boolean;
+}) {
+  const locales = navigator.languages;
+
   return (
-    <div
-      style={{
-        color: "hsl(0 0% 70%)",
-        fontSize: 12,
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <Container>
       <IconClockHour4Filled size="1em" />
       {start.toLocaleTimeString(locales, {
-        timeStyle: "short",
-        hour12: false,
-      })}{" "}
-      –{" "}
-      {end.toLocaleTimeString(locales, {
-        timeStyle: "short",
-        hour12: false,
+        ...FORMAT_OPTIONS,
+        hour12,
       })}
-    </div>
+      <span>&ndash;</span>
+      {end.toLocaleTimeString(locales, {
+        ...FORMAT_OPTIONS,
+        hour12,
+      })}
+    </Container>
   );
 }

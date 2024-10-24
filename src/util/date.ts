@@ -1,13 +1,15 @@
 import { CalendarEvent } from "../types";
 
-export function isToday(date: Date) {
-  const today = new Date();
-
+export function isSameDay(dateA: Date, dateB: Date) {
   return (
-    today.getFullYear() == date.getFullYear() &&
-    today.getMonth() == date.getMonth() &&
-    today.getDate() == date.getDate()
+    dateA.getFullYear() == dateB.getFullYear() &&
+    dateA.getMonth() == dateB.getMonth() &&
+    dateA.getDate() == dateB.getDate()
   );
+}
+
+export function isToday(date: Date) {
+  return isSameDay(new Date(), date);
 }
 
 export function sort_eventByStartDate(
@@ -16,3 +18,7 @@ export function sort_eventByStartDate(
 ) {
   return new Date(eventB.start).getTime() - new Date(eventA.start).getTime();
 }
+
+export const filter_eventsByDate = (date: Date) => (event: CalendarEvent) => {
+  return isSameDay(date, new Date(event.start));
+};

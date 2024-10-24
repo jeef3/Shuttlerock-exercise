@@ -9,14 +9,22 @@ import type { CalendarEvent } from "../types";
 import DeleteCalendarEventModal from "../modals/DeleteCalendarEventModal";
 import {
   CalendarDate,
+  CalendarDetail,
   CalendarRowContainer,
+  CalendarTime,
 } from "./atoms/CalendarEventRowAtoms";
 import { isToday } from "../util/date";
 import AddEditEventModal from "../modals/AddEditEventModal";
 
 const locales = navigator.languages;
 
-export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
+export default function CalendarEventRow({
+  event,
+  showDate = false,
+}: {
+  event: CalendarEvent;
+  showDate?: boolean;
+}) {
   const today = useMemo(() => isToday(new Date(event.start)), [event.start]);
 
   const [showEditEventModal, closeAddEdeitEventModal] = useModal(
@@ -43,48 +51,36 @@ export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
   );
 
   return (
-    <CalendarRowContainer>
-      <CalendarDate today={today}>
-        <div
-          style={{
-            lineHeight: 1,
-            fontSize: 12,
-            fontWeight: 600,
-          }}
-        >
-          {new Date(event.start).toLocaleDateString(locales, {
-            weekday: "short",
-          })}
-        </div>
-        <div style={{ lineHeight: 1, fontSize: 28, fontWeight: 700 }}>
-          {new Date(event.start).getDate()}
-        </div>
-      </CalendarDate>
+    <CalendarRowContainer showDate={showDate}>
+      {showDate && (
+        <CalendarDate today={today}>
+          <div
+            style={{
+              lineHeight: 1,
+              fontSize: 12,
+              fontWeight: 600,
+            }}
+          >
+            {new Date(event.start).toLocaleDateString(locales, {
+              weekday: "short",
+            })}
+          </div>
+          <div style={{ lineHeight: 1, fontSize: 28, fontWeight: 700 }}>
+            {new Date(event.start).getDate()}
+          </div>
+        </CalendarDate>
+      )}
 
-      <div
-        style={{
-          gridArea: "time",
-
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      <CalendarTime>
         <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />
-      </div>
+      </CalendarTime>
 
-      <div
-        style={{
-          gridArea: "detail",
-
-          display: "grid",
-          gridTemplateRows: "auto 1fr",
-        }}
-      >
+      <CalendarDetail>
         <div style={{ fontSize: 16, fontWeight: 600 }}>{event.title}</div>
         <div style={{ fontSize: 12, color: "hsl(0 0% 70%)" }}>
           {event.description}
         </div>
-      </div>
+      </CalendarDetail>
 
       <div
         style={{

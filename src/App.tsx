@@ -47,10 +47,30 @@ function App() {
             justifyContent: "space-between",
           }}
         >
-          <h2 style={{ alignItems: "center", display: "flex", gap: 2 }}>
-            <IconCalendar size="1em" />
-            Upcoming Events
-          </h2>
+          {view === "day" && (
+            <h2 style={{ alignItems: "center", display: "flex", gap: 2 }}>
+              <IconCalendar size="1em" />
+              Daily Agenda
+            </h2>
+          )}
+          {view === "list" && (
+            <h2 style={{ alignItems: "center", display: "flex", gap: 2 }}>
+              <IconListDetails size="1em" />
+              Upcoming Events
+            </h2>
+          )}
+          {view === "week" && (
+            <h2 style={{ alignItems: "center", display: "flex", gap: 2 }}>
+              <IconCalendarWeek size="1em" />
+              Week
+            </h2>
+          )}
+          {view === "month" && (
+            <h2 style={{ alignItems: "center", display: "flex", gap: 2 }}>
+              <IconCalendarMonth size="1em" />
+              Month
+            </h2>
+          )}
 
           <ButtonGroup>
             <Button $active={view === "day"} onClick={() => setView("day")}>

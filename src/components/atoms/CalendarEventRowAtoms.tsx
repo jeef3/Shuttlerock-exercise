@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CalendarRowContainer = styled.div`
+export const CalendarRowContainer = styled.div<{ showDate?: boolean }>`
   color: hsl(0 0% 20%);
 
   border: solid 1px hsl(0 0% 90%);
@@ -8,8 +8,7 @@ export const CalendarRowContainer = styled.div`
   background: white;
 
   display: grid;
-  column-gap: 16px;
-  grid-template-columns: [date] auto [time] auto [detail] 1fr [edit] auto;
+  grid-template-columns: ${({ showDate = false }) => showDate && "[date] auto"} [time] 160px [detail] 1fr [edit] auto;
   align-items: center;
 `;
 
@@ -25,4 +24,20 @@ export const CalendarDate = styled.div<{ today?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const CalendarTime = styled.div`
+  grid-area: time;
+
+  padding: 0 8px;
+
+  display: flex;
+  align-items: center;
+`;
+
+export const CalendarDetail = styled.div`
+  grid-area: detail;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;

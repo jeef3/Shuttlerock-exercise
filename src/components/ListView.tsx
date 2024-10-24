@@ -17,7 +17,9 @@ export default function ListView() {
         ? "Loading"
         : calendarEvents
             .sort(sort_eventByStartDate)
-            .map((event) => <CalendarEventRow key={event.id} event={event} />)}
+            .map((event) => (
+              <CalendarEventRow key={event.id} event={event} showDate />
+            ))}
     </div>
   );
 }

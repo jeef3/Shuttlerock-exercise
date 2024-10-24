@@ -14,10 +14,6 @@ export default function DayView() {
     [calendarEvents, date],
   );
 
-  function handleEditClick(event: CalendarEvent): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <div>
       DAY VIEW
@@ -31,11 +27,7 @@ export default function DayView() {
         {!dayEvents
           ? "Loading"
           : dayEvents.map((event) => (
-              <CalendarEventRow
-                key={event.id}
-                event={event}
-                onEditClick={() => handleEditClick(event)}
-              />
+              <CalendarEventRow key={event.id} event={event} />
             ))}
       </div>
     </div>

@@ -1,6 +1,7 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "../api";
+import { CalendarEvent } from "../types";
 
 export function useCalendarEvents() {
   return useQuery({
@@ -10,8 +11,11 @@ export function useCalendarEvents() {
 }
 
 export function useMutateCalendarEvent() {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ["events"],
-    mutationFn: (event) => api.events.update(event),
+    mutationFn: (event: CalendarEvent) => api.events.update(event),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["events"] }),
   });
 }

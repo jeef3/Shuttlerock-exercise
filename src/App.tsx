@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useModal } from "react-modal-hook";
 import { IconCalendar, IconCalendarPlus } from "@tabler/icons-react";
 
@@ -13,17 +13,26 @@ import type { CalendarEvent } from "./types";
 function App() {
   const { data: calendarEvents } = useCalendarEvents();
 
+  const [currentEvent, setCurrentEvent] = useState<CalendarEvent | null>(null);
+
   const [showAddEditEventModal, closeAddEdeitEventModal] = useModal(
-    () => <AddEditEventModal onClose={closeAddEdeitEventModal} />,
-    [],
+    () => (
+      <AddEditEventModal
+        event={currentEvent}
+        onClose={closeAddEdeitEventModal}
+      />
+    ),
+    [currentEvent],
   );
 
   const handleAddClick = useCallback(() => {
+    setCurrentEvent(null);
     showAddEditEventModal();
   }, [showAddEditEventModal]);
 
   const handleEditClick = useCallback(
     (event: CalendarEvent) => {
+      setCurrentEvent(event);
       showAddEditEventModal();
     },
     [showAddEditEventModal],

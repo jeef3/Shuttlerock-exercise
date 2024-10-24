@@ -23,7 +23,6 @@ const send = async <TData extends object, TResponse = TData>(
 export const api = {
   events: {
     async list() {
-      console.log("get it");
       return send<CalendarEvent[]>("/events", "GET");
     },
 

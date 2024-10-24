@@ -1,4 +1,4 @@
-import { FormEvent, MouseEventHandler, useCallback } from "react";
+import { FormEvent, useCallback } from "react";
 
 import Modal from "../components/Modal";
 import ModalHeader from "../components/ModalHeader";
@@ -7,18 +7,31 @@ import useForm from "../hooks/useForm";
 import { CalendarEvent } from "../types";
 import Button from "../components/Button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
+import { useMutateCalendarEvent } from "../hooks/useCalendarEvents";
 
 export default function AddEditEventModal({
+  event,
   onClose,
 }: {
-  onClose?: MouseEventHandler;
+  event?: CalendarEvent | null;
+  onClose?: () => void;
 }) {
+  const { mutateAsync: updateEvent } = useMutateCalendarEvent();
+
   const { formData, formState, handleChange, handleSubmit, setError } =
-    useForm<CalendarEvent>();
+    useForm<CalendarEvent>(event);
 
   const onSubmit = useCallback(
-    (e: FormEvent) => void handleSubmit(async (event: CalendarEvent) => {})(e),
-    [handleSubmit],
+    (e: FormEvent) =>
+      void handleSubmit(async (event: CalendarEvent) => {
+        try {
+          await updateEvent(event);
+          onClose?.();
+        } catch {
+          setError("__root__", "Something went wrong, please try again.");
+        }
+      })(e),
+    [handleSubmit, onClose, setError, updateEvent],
   );
 
   return (
@@ -32,7 +45,7 @@ export default function AddEditEventModal({
             <input
               required
               type="text"
-              name="name"
+              name="title"
               disabled={formState.isSubmitting}
               value={formData.title}
               onChange={handleChange}
@@ -53,8 +66,8 @@ export default function AddEditEventModal({
             Starts
             <input
               required
-              type="date"
-              name="name"
+              type="datetime-local"
+              name="start"
               disabled={formState.isSubmitting}
               value={formData.start}
               onChange={handleChange}
@@ -65,8 +78,8 @@ export default function AddEditEventModal({
             Ends
             <input
               required
-              type="date"
-              name="name"
+              type="datetime-local"
+              name="end"
               disabled={formState.isSubmitting}
               value={formData.end}
               onChange={handleChange}
@@ -76,9 +89,8 @@ export default function AddEditEventModal({
           <label>
             All day?
             <input
-              required
               type="checkbox"
-              name="name"
+              name="allDay"
               disabled={formState.isSubmitting}
               checked={formData.allDay}
               onChange={handleChange}

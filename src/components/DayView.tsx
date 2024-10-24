@@ -5,6 +5,7 @@ import { ListContainer } from "./atoms/CalendarEventRowAtoms";
 import CalendarEventRow from "./CalendarEventRow";
 import Button from "./Button";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import DayPicker from "./DayPicker";
 
 export default function DayView() {
   const { data: calendarEvents } = useCalendarEvents();
@@ -55,7 +56,7 @@ export default function DayView() {
         <Button onClick={handlePreviousClick} title="Previous day">
           <IconChevronLeft size="19px" />
         </Button>
-        <Button title="Change day">{date.toDateString()}</Button>
+        <DayPicker />
         <Button onClick={handleNextClick} title="Next day">
           <IconChevronRight size="19px" />
         </Button>

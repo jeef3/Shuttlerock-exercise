@@ -15,7 +15,7 @@ const Container = styled.dialog`
   border: 0;
   border-radius: 20px;
 
-  box-shadow: 0 20px 20px gsl(0 0% 0% / 25%);
+  box-shadow: 0 20px 20px hsl(0 0% 0% / 25%);
 `;
 
 export default function Modal({ children }: { children: ReactNode }) {

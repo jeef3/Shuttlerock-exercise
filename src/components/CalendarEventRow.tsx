@@ -53,9 +53,9 @@ export default function CalendarEventRow({
   );
 
   return (
-    <CalendarRowContainer showDate={showDate}>
+    <CalendarRowContainer $showDate={showDate}>
       {showDate && (
-        <CalendarDate today={today}>
+        <CalendarDate $today={today}>
           <div
             style={{
               lineHeight: 1,
@@ -77,7 +77,7 @@ export default function CalendarEventRow({
         <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />
       </CalendarTime>
 
-      <CalendarDetail oneLine={oneLine}>
+      <CalendarDetail $oneLine={oneLine}>
         <div style={{ fontSize: 16, fontWeight: 600 }}>{event.title}</div>
         <div style={{ fontSize: 12, color: "hsl(0 0% 70%)" }}>
           {event.description}

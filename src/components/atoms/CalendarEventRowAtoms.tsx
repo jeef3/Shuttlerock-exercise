@@ -6,7 +6,7 @@ export const ListContainer = styled.div`
   align-content: start;
 `;
 
-export const CalendarRowContainer = styled.div<{ showDate?: boolean }>`
+export const CalendarRowContainer = styled.div<{ $showDate?: boolean }>`
   color: hsl(0 0% 20%);
 
   border: solid 1px hsl(0 0% 90%);
@@ -14,17 +14,19 @@ export const CalendarRowContainer = styled.div<{ showDate?: boolean }>`
   background: white;
 
   display: grid;
-  grid-template-columns: ${({ showDate = false }) => showDate && "[date] auto"} [time] 160px [detail] 1fr [edit] auto;
+  grid-template-columns: ${({ $showDate = false }) =>
+      $showDate && "[date] auto"} [time] 160px [detail] 1fr [edit] auto;
   align-items: center;
 `;
 
-export const CalendarDate = styled.div<{ today?: boolean }>`
+export const CalendarDate = styled.div<{ $today?: boolean }>`
   grid-area: date;
 
   margin: 8px 0;
   padding: 4px 18px;
 
-  color: ${({ today = false }) => (today ? "hsl(0 50% 50%)" : "hsl(0 0% 30%)")};
+  color: ${({ $today = false }) =>
+    $today ? "hsl(0 50% 50%)" : "hsl(0 0% 30%)"};
   border-right: solid 1px hsl(0 0% 90%);
 
   display: flex;
@@ -41,14 +43,14 @@ export const CalendarTime = styled.div`
   align-items: center;
 `;
 
-export const CalendarDetail = styled.div<{ oneLine?: boolean }>`
+export const CalendarDetail = styled.div<{ $oneLine?: boolean }>`
   grid-area: detail;
 
   display: grid;
   align-items: center;
   column-gap: 8px;
-  ${({ oneLine = false }) =>
-    oneLine
+  ${({ $oneLine = false }) =>
+    $oneLine
       ? "grid-template-columns: auto 1fr"
       : "grid-template-rows: auto 1fr"};
 `;

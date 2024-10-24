@@ -10,6 +10,7 @@ import { useCalendarEvents } from "./hooks/useCalendarEvents";
 
 import type { CalendarEvent } from "./types";
 import { sort_eventByStartDate } from "./util/date";
+import ButtonGroup from "./components/ButtonGroup";
 
 function App() {
   const { data: calendarEvents } = useCalendarEvents();
@@ -43,6 +44,10 @@ function App() {
     <AppContainer>
       <AppHeader>
         <h1>Calendar</h1>
+
+        <Button $type="action" onClick={handleAddClick}>
+          <IconCalendarPlus size="1em" /> Add event
+        </Button>
       </AppHeader>
 
       <AppBody>
@@ -57,9 +62,11 @@ function App() {
             <IconCalendar size="1em" />
             Upcoming Events
           </h2>
-          <Button $type="action" onClick={handleAddClick}>
-            <IconCalendarPlus size="1em" /> Add event
-          </Button>
+
+          <ButtonGroup>
+            <Button>Day</Button>
+            <Button $active>List</Button>
+          </ButtonGroup>
         </header>
         <div
           style={{

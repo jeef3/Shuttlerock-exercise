@@ -46,7 +46,8 @@ const Button = styled.button<ButtonProps>`
   ${({ $active = false }) =>
     $active &&
     `
-  background: color-mix(in hsl, var(--base), black 5%);
+  color: white;
+  background: hsl(220 85% 35%);
   `}
 
   display: flex;
@@ -58,10 +59,24 @@ const Button = styled.button<ButtonProps>`
 
   &:hover {
     background: color-mix(in hsl, var(--base), black 10%);
+
+    ${({ $active = false }) =>
+      $active &&
+      `
+    color: white;
+    background: color-mix(in hsl, hsl(220 85% 35%), black 10%);
+    `}
   }
 
   &:active {
     background: color-mix(in hsl, var(--base), black 15%);
+
+    ${({ $active = false }) =>
+      $active &&
+      `
+    color: white;
+    background: color-mix(in hsl, hsl(220 85% 35%), black 15%);
+    `}
   }
 
   &:disabled {

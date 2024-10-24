@@ -4,7 +4,7 @@ export const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background: hsl(240 10% 98%);
+  background: hsl(240 10% 95%);
 
   display: grid;
   grid-template-rows: [header] auto [main] 1fr;

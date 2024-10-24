@@ -12,17 +12,17 @@ import {
   CalendarRowContainer,
 } from "./atoms/CalendarEventRowAtoms";
 import { isToday } from "../util/date";
+import AddEditEventModal from "../modals/AddEditEventModal";
 
 const locales = navigator.languages;
 
-export default function CalendarEventRow({
-  event,
-  onEditClick,
-}: {
-  event: CalendarEvent;
-  onEditClick?: MouseEventHandler;
-}) {
+export default function CalendarEventRow({ event }: { event: CalendarEvent }) {
   const today = useMemo(() => isToday(new Date(event.start)), [event.start]);
+
+  const [showEditEventModal, closeAddEdeitEventModal] = useModal(
+    () => <AddEditEventModal event={event} onClose={closeAddEdeitEventModal} />,
+    [],
+  );
 
   const [showDeleteCalendarEventModal, closeDeleteCalendarEventModal] =
     useModal(() => (
@@ -32,9 +32,15 @@ export default function CalendarEventRow({
       />
     ));
 
-  const handleDeleteClick = useCallback(() => {
-    showDeleteCalendarEventModal();
-  }, [showDeleteCalendarEventModal]);
+  const handleEditClick = useCallback(
+    () => showEditEventModal(),
+    [showEditEventModal],
+  );
+
+  const handleDeleteClick = useCallback(
+    () => showDeleteCalendarEventModal(),
+    [showDeleteCalendarEventModal],
+  );
 
   return (
     <CalendarRowContainer>
@@ -89,7 +95,7 @@ export default function CalendarEventRow({
           gap: 4,
         }}
       >
-        <Button onClick={onEditClick} title="Create calendar event">
+        <Button onClick={handleEditClick} title="Edit calendar event">
           <IconPencil size="1em" />
         </Button>
         <Button onClick={handleDeleteClick} title="Delete calendar event">

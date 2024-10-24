@@ -9,46 +9,25 @@ import {
 } from "@tabler/icons-react";
 
 import { AppBody, AppContainer, AppHeader } from "./components/atoms/AppAtoms";
-import CalendarEventRow from "./components/CalendarEventRow";
 import Button from "./components/Button";
 import AddEditEventModal from "./modals/AddEditEventModal";
-import { useCalendarEvents } from "./hooks/useCalendarEvents";
-
-import type { CalendarEvent } from "./types";
-import { sort_eventByStartDate } from "./util/date";
 import ButtonGroup from "./components/ButtonGroup";
 import DayView from "./components/DayView";
+import ListView from "./components/ListView";
 
 type ViewState = "day" | "list" | "week" | "month";
 
 function App() {
-  const { data: calendarEvents } = useCalendarEvents();
-
   const [view, setView] = useState<ViewState>("day");
-  const [currentEvent, setCurrentEvent] = useState<CalendarEvent | null>(null);
 
   const [showAddEditEventModal, closeAddEdeitEventModal] = useModal(
-    () => (
-      <AddEditEventModal
-        event={currentEvent}
-        onClose={closeAddEdeitEventModal}
-      />
-    ),
-    [currentEvent],
+    () => <AddEditEventModal onClose={closeAddEdeitEventModal} />,
+    [],
   );
 
   const handleAddClick = useCallback(() => {
-    setCurrentEvent(null);
     showAddEditEventModal();
   }, [showAddEditEventModal]);
-
-  const handleEditClick = useCallback(
-    (event: CalendarEvent) => {
-      setCurrentEvent(event);
-      showAddEditEventModal();
-    },
-    [showAddEditEventModal],
-  );
 
   return (
     <AppContainer>
@@ -90,28 +69,7 @@ function App() {
         </header>
 
         {view === "day" && <DayView />}
-
-        {view === "list" && (
-          <div
-            style={{
-              display: "grid",
-              gap: 8,
-              alignContent: "start",
-            }}
-          >
-            {!calendarEvents
-              ? "Loading"
-              : calendarEvents
-                  .sort(sort_eventByStartDate)
-                  .map((event) => (
-                    <CalendarEventRow
-                      key={event.id}
-                      event={event}
-                      onEditClick={() => handleEditClick(event)}
-                    />
-                  ))}
-          </div>
-        )}
+        {view === "list" && <ListView />}
       </AppBody>
     </AppContainer>
   );

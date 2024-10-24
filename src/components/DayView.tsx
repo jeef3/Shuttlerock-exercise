@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useCalendarEvents } from "../hooks/useCalendarEvents";
 import { filter_eventsByDate } from "../util/date";
 import CalendarEventRow from "./CalendarEventRow";
+import { CalendarEvent } from "../types";
 
 export default function DayView() {
   const { data: calendarEvents } = useCalendarEvents();
@@ -13,10 +14,30 @@ export default function DayView() {
     [calendarEvents, date],
   );
 
+  function handleEditClick(event: CalendarEvent): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div>
       DAY VIEW
-      {dayEvents?.map((event) => <CalendarEventRow event={event} />)}
+      <div
+        style={{
+          display: "grid",
+          gap: 8,
+          alignContent: "start",
+        }}
+      >
+        {!dayEvents
+          ? "Loading"
+          : dayEvents.map((event) => (
+              <CalendarEventRow
+                key={event.id}
+                event={event}
+                onEditClick={() => handleEditClick(event)}
+              />
+            ))}
+      </div>
     </div>
   );
 }

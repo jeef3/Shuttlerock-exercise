@@ -21,9 +21,11 @@ const locales = navigator.languages;
 export default function CalendarEventRow({
   event,
   showDate = false,
+  oneLine = false,
 }: {
   event: CalendarEvent;
   showDate?: boolean;
+  oneLine?: boolean;
 }) {
   const today = useMemo(() => isToday(new Date(event.start)), [event.start]);
 
@@ -75,7 +77,7 @@ export default function CalendarEventRow({
         <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />
       </CalendarTime>
 
-      <CalendarDetail>
+      <CalendarDetail oneLine={oneLine}>
         <div style={{ fontSize: 16, fontWeight: 600 }}>{event.title}</div>
         <div style={{ fontSize: 12, color: "hsl(0 0% 70%)" }}>
           {event.description}

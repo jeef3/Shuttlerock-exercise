@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useCalendarEvents } from "../hooks/useCalendarEvents";
 import { filter_eventsByDate } from "../util/date";
+import { ListContainer } from "./atoms/CalendarEventRowAtoms";
 import CalendarEventRow from "./CalendarEventRow";
-import { CalendarEvent } from "../types";
 
 export default function DayView() {
   const { data: calendarEvents } = useCalendarEvents();
@@ -16,20 +16,15 @@ export default function DayView() {
 
   return (
     <div>
-      DAY VIEW
-      <div
-        style={{
-          display: "grid",
-          gap: 8,
-          alignContent: "start",
-        }}
-      >
+      <div></div>
+
+      <ListContainer>
         {!dayEvents
           ? "Loading"
           : dayEvents.map((event) => (
-              <CalendarEventRow key={event.id} event={event} />
+              <CalendarEventRow key={event.id} event={event} oneLine />
             ))}
-      </div>
+      </ListContainer>
     </div>
   );
 }

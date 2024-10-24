@@ -1,18 +1,13 @@
-import { useCalendarEvents } from "../hooks/useCalendarEvents";
 import { sort_eventByStartDate } from "../util/date";
+import { useCalendarEvents } from "../hooks/useCalendarEvents";
+import { ListContainer } from "./atoms/CalendarEventRowAtoms";
 import CalendarEventRow from "./CalendarEventRow";
 
 export default function ListView() {
   const { data: calendarEvents } = useCalendarEvents();
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gap: 8,
-        alignContent: "start",
-      }}
-    >
+    <ListContainer>
       {!calendarEvents
         ? "Loading"
         : calendarEvents
@@ -20,6 +15,6 @@ export default function ListView() {
             .map((event) => (
               <CalendarEventRow key={event.id} event={event} showDate />
             ))}
-    </div>
+    </ListContainer>
   );
 }

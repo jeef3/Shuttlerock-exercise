@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const ListContainer = styled.div`
+  display: grid;
+  gap: 8px;
+  align-content: start;
+`;
+
 export const CalendarRowContainer = styled.div<{ showDate?: boolean }>`
   color: hsl(0 0% 20%);
 
@@ -35,9 +41,14 @@ export const CalendarTime = styled.div`
   align-items: center;
 `;
 
-export const CalendarDetail = styled.div`
+export const CalendarDetail = styled.div<{ oneLine?: boolean }>`
   grid-area: detail;
 
   display: grid;
-  grid-template-rows: auto 1fr;
+  align-items: center;
+  column-gap: 8px;
+  ${({ oneLine = false }) =>
+    oneLine
+      ? "grid-template-columns: auto 1fr"
+      : "grid-template-rows: auto 1fr"};
 `;

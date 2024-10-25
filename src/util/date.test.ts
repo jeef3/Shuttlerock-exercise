@@ -79,32 +79,64 @@ describe("Dates", () => {
   });
 
   describe("sort_eventByStartDate", () => {
-    test("Returns greater than 0 for later days", () => {
-      const today = new Date();
+    describe("Sort ascending", () => {
+      test("Returns less than 0 for later days", () => {
+        const today = new Date();
 
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
-      const result = sort_eventByStartDate(
-        { start: today.toISOString() } as CalendarEvent,
-        { start: tomorrow.toISOString() } as CalendarEvent,
-      );
+        const result = sort_eventByStartDate("ASC")(
+          { start: today.toISOString() } as CalendarEvent,
+          { start: tomorrow.toISOString() } as CalendarEvent,
+        );
 
-      expect(result > 0).toBe(true);
+        expect(result < 0).toBe(true);
+      });
+
+      test("Returns greater than 0 for sooner days", () => {
+        const today = new Date();
+
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        const result = sort_eventByStartDate("ASC")(
+          { start: today.toISOString() } as CalendarEvent,
+          { start: yesterday.toISOString() } as CalendarEvent,
+        );
+
+        expect(result > 0).toBe(true);
+      });
     });
 
-    test("Returns less than 0 for sooner days", () => {
-      const today = new Date();
+    describe("Sort descending", () => {
+      test("Returns greater than 0 for later days", () => {
+        const today = new Date();
 
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
-      const result = sort_eventByStartDate(
-        { start: today.toISOString() } as CalendarEvent,
-        { start: yesterday.toISOString() } as CalendarEvent,
-      );
+        const result = sort_eventByStartDate("DESC")(
+          { start: today.toISOString() } as CalendarEvent,
+          { start: tomorrow.toISOString() } as CalendarEvent,
+        );
 
-      expect(result < 0).toBe(true);
+        expect(result > 0).toBe(true);
+      });
+
+      test("Returns less than 0 for sooner days", () => {
+        const today = new Date();
+
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        const result = sort_eventByStartDate("DESC")(
+          { start: today.toISOString() } as CalendarEvent,
+          { start: yesterday.toISOString() } as CalendarEvent,
+        );
+
+        expect(result < 0).toBe(true);
+      });
     });
   });
 

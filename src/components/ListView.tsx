@@ -4,23 +4,31 @@ import { ListContainer } from "./atoms/CalendarEventRowAtoms";
 import CalendarEventRow from "./CalendarEventRow";
 import CalendarEventRowLoading from "./CalendarEventRowLoading";
 import { EmptyList } from "./atoms/EmptyList";
+import { useMemo } from "react";
 
 export default function ListView() {
   const { data: calendarEvents } = useCalendarEvents();
 
+  const upcomingEvents = useMemo(() => {
+    const now = new Date();
+    return calendarEvents?.filter(
+      (event) => new Date(event.end).getTime() > now.getTime(),
+    );
+  }, [calendarEvents]);
+
   return (
     <ListContainer>
-      {!calendarEvents ? (
+      {!upcomingEvents ? (
         <>
           <CalendarEventRowLoading showDate />
           <CalendarEventRowLoading showDate />
           <CalendarEventRowLoading showDate />
         </>
-      ) : !calendarEvents.length ? (
+      ) : !upcomingEvents.length ? (
         <EmptyList>No events</EmptyList>
       ) : (
-        calendarEvents
-          .sort(sort_eventByStartDate)
+        upcomingEvents
+          .sort(sort_eventByStartDate("ASC"))
           .map((event) => (
             <CalendarEventRow key={event.id} event={event} showDate />
           ))

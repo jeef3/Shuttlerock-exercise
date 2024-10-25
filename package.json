@@ -18,6 +18,7 @@
     "dayzed": "^3.2.3",
     "framer-motion": "^11.11.9",
     "react": "^18.3.1",
+    "react-content-loader": "^7.0.2",
     "react-dom": "^18.3.1",
     "react-laag": "^2.0.5",
     "react-modal-hook": "^3.0.2",

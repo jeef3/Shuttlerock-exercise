@@ -7,6 +7,8 @@ export const ListContainer = styled.div`
 `;
 
 export const CalendarRowContainer = styled.div<{ $showDate?: boolean }>`
+  min-height: 42px;
+
   color: hsl(0 0% 20%);
 
   border: solid 1px hsl(0 0% 90%);
@@ -17,6 +19,7 @@ export const CalendarRowContainer = styled.div<{ $showDate?: boolean }>`
   grid-template-columns: ${({ $showDate = false }) =>
       $showDate && "[date] auto"} [time] 160px [detail] 1fr [edit] auto;
   align-items: center;
+  align-content: center;
 `;
 
 export const CalendarDate = styled.div<{ $today?: boolean }>`

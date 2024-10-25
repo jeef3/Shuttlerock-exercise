@@ -58,12 +58,7 @@ export default function Calendar({
             >
               {MONTHS[calendar.month]} {calendar.year}
             </h2>
-            <div
-              style={{
-                color: "lime",
-                display: "flex",
-              }}
-            >
+            <div style={{ display: "flex" }}>
               <Button
                 $type="transparent"
                 {...getBackProps({ calendars })}

@@ -8,7 +8,12 @@ import {
   IconListDetails,
 } from "@tabler/icons-react";
 
-import { AppBody, AppContainer, AppHeader } from "./components/atoms/AppAtoms";
+import {
+  AppBody,
+  AppContainer,
+  AppContent,
+  AppHeader,
+} from "./components/atoms/AppAtoms";
 import Button from "./components/Button";
 import AddEditEventModal from "./modals/AddEditEventModal";
 import ButtonGroup from "./components/ButtonGroup";
@@ -42,6 +47,7 @@ function App() {
       <AppBody>
         <header
           style={{
+            padding: "16px 16px 8px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -88,8 +94,10 @@ function App() {
           </ButtonGroup>
         </header>
 
-        {view === "day" && <DayView />}
-        {view === "list" && <ListView />}
+        <AppContent>
+          {view === "day" && <DayView />}
+          {view === "list" && <ListView />}
+        </AppContent>
       </AppBody>
     </AppContainer>
   );

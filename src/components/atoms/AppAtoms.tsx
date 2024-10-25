@@ -22,8 +22,14 @@ export const AppHeader = styled.header`
 `;
 
 export const AppBody = styled.main`
-  padding: 8px 16px;
+  overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 8px;
+`;
+
+export const AppContent = styled.div`
+  padding: 8px 16px;
+  overflow: scroll;
+  display: grid;
 `;

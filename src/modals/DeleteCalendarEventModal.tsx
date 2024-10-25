@@ -15,22 +15,41 @@ export default function DeleteCalendarEventModal({
   event: CalendarEvent;
   onClose?: () => void;
 }) {
-  const { mutateAsync: deleteEvent } = useDeleteCalendarEvent();
+  const { mutateAsync: deleteEvent, isPending } = useDeleteCalendarEvent();
 
-  const handleDeleteClick = useCallback(() => {});
+  const handleDeleteClick = useCallback(async () => {
+    await deleteEvent(event);
+    onClose?.();
+  }, [deleteEvent, event, onClose]);
 
   return (
     <Modal>
       <ModalHeader title="Delete Calendar Event" onClose={onClose} />
 
-      <div></div>
+      <div style={{ padding: 16 }}>
+        Are you sure you want to delete this event?
+      </div>
 
       <ModalFooter
         buttons={
           <>
-            <Button onClick={onClose}>Close</Button>
-            <Button $type="destructive" onClick={handleDeleteClick}>
-              <IconTrash size="1em" /> Delete event
+            <Button disabled={isPending} onClick={onClose}>
+              Close
+            </Button>
+            <Button
+              $type="destructive"
+              disabled={isPending}
+              onClick={handleDeleteClick}
+            >
+              {isPending ? (
+                <>
+                  <IconTrash size="1em" /> Deleting…
+                </>
+              ) : (
+                <>
+                  <IconTrash size="1em" /> Delete event
+                </>
+              )}
             </Button>
           </>
         }

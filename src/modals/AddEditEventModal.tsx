@@ -1,4 +1,4 @@
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useMemo } from "react";
 
 import Modal from "../components/Modal";
 import ModalHeader from "../components/ModalHeader";
@@ -8,6 +8,7 @@ import { CalendarEvent } from "../types";
 import Button from "../components/Button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useMutateCalendarEvent } from "../hooks/useCalendarEvents";
+import { dateToInputDate } from "../util/date";
 
 export default function AddEditEventModal({
   event,
@@ -18,8 +19,27 @@ export default function AddEditEventModal({
 }) {
   const { mutateAsync: addOrUpdateEvent } = useMutateCalendarEvent();
 
+  const defaultDates = useMemo(() => {
+    const start = new Date();
+
+    const end = new Date(start);
+    end.setHours(end.getHours() + 1);
+
+    return {
+      start: start.toISOString(),
+      end: end.toISOString(),
+    };
+  }, []);
+
   const { formData, formState, handleChange, handleSubmit, setError } =
-    useForm<CalendarEvent>(event);
+    useForm<CalendarEvent>(
+      event ??
+        ({
+          start: defaultDates.start,
+          end: defaultDates.end,
+          allDay: false,
+        } as CalendarEvent),
+    );
 
   const onSubmit = useCallback(
     (e: FormEvent) =>
@@ -69,7 +89,7 @@ export default function AddEditEventModal({
               type="datetime-local"
               name="start"
               disabled={formState.isSubmitting}
-              value={formData.start}
+              value={dateToInputDate(new Date(formData.start))}
               onChange={handleChange}
             />
           </label>
@@ -81,7 +101,7 @@ export default function AddEditEventModal({
               type="datetime-local"
               name="end"
               disabled={formState.isSubmitting}
-              value={formData.end}
+              value={dateToInputDate(new Date(formData.end))}
               onChange={handleChange}
             />
           </label>

@@ -12,6 +12,14 @@ export function isToday(date: Date) {
   return isSameDay(new Date(), date);
 }
 
+export function dateToInputDate(date: Date): string {
+  return date.toLocaleString("sv");
+}
+
+export function inputDateToDate(input: string): Date {
+  return new Date(input);
+}
+
 export function sort_eventByStartDate(
   eventA: CalendarEvent,
   eventB: CalendarEvent,

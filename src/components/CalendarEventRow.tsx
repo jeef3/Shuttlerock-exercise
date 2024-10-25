@@ -1,4 +1,4 @@
-import { MouseEventHandler, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useModal } from "react-modal-hook";
 import { IconPencil, IconTrash } from "@tabler/icons-react";
 

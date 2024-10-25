@@ -1,7 +1,9 @@
 import { describe, expect, test } from "vitest";
 
 import {
+  dateToInputDate,
   filter_eventsByDate,
+  inputDateToDate,
   isSameDay,
   isToday,
   sort_eventByStartDate,
@@ -30,6 +32,26 @@ describe("Dates", () => {
 
       expect(isSameDay(today, yesterday)).toBe(false);
       expect(isSameDay(today, tomorrow)).toBe(false);
+    });
+  });
+
+  describe("dateToInputDate", () => {
+    test("Returns the date in an input datetime format", () => {
+      const date = new Date("2000-01-01T03:30:00");
+
+      const result = dateToInputDate(date);
+
+      expect(result).toBe("2000-01-01 03:30:00");
+    });
+  });
+
+  describe("inputDateToDate", () => {
+    test("Returns the input date as a Date object", () => {
+      const date = new Date("2000-01-01T03:30");
+
+      const result = inputDateToDate("2000-01-01T03:30:00");
+
+      expect(result.toLocaleString("sv")).toEqual(date.toLocaleString("sv"));
     });
   });
 

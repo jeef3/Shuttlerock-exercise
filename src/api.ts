@@ -1,4 +1,4 @@
-import { CalendarEvent } from "./types";
+import { CalendarEvent, Recurrence } from "./types";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -40,6 +40,32 @@ export const api = {
 
     async delete(id: string) {
       return send(`/events/${id}`, "DELETE");
+    },
+  },
+
+  recurrences: {
+    async list() {
+      return send<Recurrence[]>("/recurrences", "GET");
+    },
+
+    async details(id: string) {
+      return send<Recurrence>(`/recurrences/${id}`, "GET");
+    },
+
+    async create(recurrence: Recurrence) {
+      return send<Recurrence>("/recurrences", "POST", recurrence);
+    },
+
+    async update(recurrence: Recurrence) {
+      return send<Recurrence>(
+        `/recurrences/${recurrence.id}`,
+        "PUT",
+        recurrence,
+      );
+    },
+
+    async delete(id: string) {
+      return send(`/recurrences/${id}`, "DELETE");
     },
   },
 };

@@ -1,3 +1,11 @@
+export type RecurrenceFrequency = "weekly" | "monthly" | "yearly";
+
+export interface Recurrence {
+  id: string;
+
+  repeat: RecurrenceFrequency;
+}
+
 export interface CalendarEvent {
   id: string;
 
@@ -7,6 +15,8 @@ export interface CalendarEvent {
   start: string;
   end: string;
   allDay?: boolean;
+
+  recurrenceId: string;
 
   external: boolean;
 }

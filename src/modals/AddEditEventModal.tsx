@@ -117,6 +117,20 @@ export default function AddEditEventModal({
                 onChange={handleChange}
               />
             </label>
+
+            <label>
+              Recurring?
+              <input type="checkbox" />
+            </label>
+
+            <label>
+              Recurrence
+              <select name="recurrence">
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </label>
           </div>
 
           <ModalFooter

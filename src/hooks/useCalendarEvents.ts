@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "../api";
-import { CalendarEvent } from "../types";
 import { external } from "../external";
+import type { CalendarEvent, RecurrenceFrequency } from "../types";
 
 export function useCalendarEvents() {
   return useQuery({
@@ -23,8 +23,13 @@ export function useMutateCalendarEvent() {
 
   return useMutation({
     mutationKey: ["events"],
-    mutationFn: (event: CalendarEvent) =>
-      event.id ? api.events.update(event) : api.events.create(event),
+    mutationFn: async (event: CalendarEvent) => {
+      const result = await (event.id
+        ? api.events.update(event)
+        : api.events.create(event));
+
+      return result;
+    },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["events"] }),
   });
 }

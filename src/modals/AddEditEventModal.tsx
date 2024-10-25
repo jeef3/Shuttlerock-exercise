@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useMutateCalendarEvent } from "../hooks/useCalendarEvents";
 import { dateToInputDate } from "../util/date";
+import Input from "../components/Input";
 
 export default function AddEditEventModal({
   event,
@@ -61,6 +62,7 @@ export default function AddEditEventModal({
           <ModalHeader title="Add Event" onClose={onClose} />
 
           <div>
+            <Input label="Name" />
             <label>
               Name
               <input

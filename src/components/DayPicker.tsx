@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import Button from "./Button";
 import Calendar from "./Calendar";
+import { isToday } from "../util/date";
 
 export default function DatPicker({
   date,
@@ -41,7 +42,14 @@ export default function DatPicker({
 
   return (
     <>
-      <Button {...triggerProps} onClick={() => setIsOpen(true)}>
+      <Button
+        {...triggerProps}
+        onClick={() => setIsOpen(true)}
+        style={{
+          color: isToday(date) ? "hsl(0 50% 50%)" : "",
+          fontWeight: isToday(date) ? 600 : "",
+        }}
+      >
         {date.toDateString()}
       </Button>
       {renderLayer(

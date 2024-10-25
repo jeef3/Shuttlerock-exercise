@@ -16,6 +16,13 @@ const GlobalStyle = createGlobalStyle`
     font-family: inherit;
     font-size: inherit;
   }
+
+  fieldset {
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+  }
 `;
 
 export default GlobalStyle;

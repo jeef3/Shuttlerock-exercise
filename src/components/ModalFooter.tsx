@@ -7,7 +7,7 @@ const Container = styled.div`
   background: hsl(0 0% 95%);
 
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
 `;
 

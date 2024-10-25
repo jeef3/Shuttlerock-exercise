@@ -9,7 +9,7 @@ const Container = styled.header`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export default function ModalHeader({

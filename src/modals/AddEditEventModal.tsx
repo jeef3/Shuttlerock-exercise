@@ -57,77 +57,87 @@ export default function AddEditEventModal({
   return (
     <Modal>
       <form onSubmit={onSubmit}>
-        <ModalHeader title="Add Event" onClose={onClose} />
+        <fieldset disabled={formState.isSubmitting}>
+          <ModalHeader title="Add Event" onClose={onClose} />
 
-        <div>
-          <label>
-            Name
-            <input
-              required
-              type="text"
-              name="title"
-              disabled={formState.isSubmitting}
-              value={formData.title}
-              onChange={handleChange}
-            />
-          </label>
+          <div>
+            <label>
+              Name
+              <input
+                required
+                type="text"
+                name="title"
+                disabled={formState.isSubmitting}
+                value={formData.title}
+                onChange={handleChange}
+              />
+            </label>
 
-          <label>
-            Description
-            <textarea
-              name="description"
-              disabled={formState.isSubmitting}
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </label>
+            <label>
+              Description
+              <textarea
+                name="description"
+                disabled={formState.isSubmitting}
+                value={formData.description}
+                onChange={handleChange}
+              />
+            </label>
 
-          <label>
-            Starts
-            <input
-              required
-              type="datetime-local"
-              name="start"
-              disabled={formState.isSubmitting}
-              value={dateToInputDate(new Date(formData.start))}
-              onChange={handleChange}
-            />
-          </label>
+            <label>
+              Starts
+              <input
+                required
+                type="datetime-local"
+                name="start"
+                disabled={formState.isSubmitting}
+                value={dateToInputDate(new Date(formData.start))}
+                onChange={handleChange}
+              />
+            </label>
 
-          <label>
-            Ends
-            <input
-              required
-              type="datetime-local"
-              name="end"
-              disabled={formState.isSubmitting}
-              value={dateToInputDate(new Date(formData.end))}
-              onChange={handleChange}
-            />
-          </label>
+            <label>
+              Ends
+              <input
+                required
+                type="datetime-local"
+                name="end"
+                disabled={formState.isSubmitting}
+                value={dateToInputDate(new Date(formData.end))}
+                onChange={handleChange}
+              />
+            </label>
 
-          <label>
-            All day?
-            <input
-              type="checkbox"
-              name="allDay"
-              disabled={formState.isSubmitting}
-              checked={formData.allDay}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
+            <label>
+              All day?
+              <input
+                type="checkbox"
+                name="allDay"
+                disabled={formState.isSubmitting}
+                checked={formData.allDay}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
 
-        <ModalFooter
-          buttons={
-            <>
-              <Button onClick={onClose}>Close</Button>
-              <Button $type="action" type="submit">
-                <IconDeviceFloppy size="1em" /> Save
-              </Button>
-            </>
-          }
-        />
+          <ModalFooter
+            buttons={
+              <>
+                <Button onClick={onClose}>Close</Button>
+                <Button $type="action" type="submit">
+                  {formState.isSubmitting ? (
+                    <>
+                      <IconDeviceFloppy size="1em" /> Saving…
+                    </>
+                  ) : (
+                    <>
+                      <IconDeviceFloppy size="1em" /> Save
+                    </>
+                  )}
+                </Button>
+              </>
+            }
+          />
+        </fieldset>
       </form>
     </Modal>
   );

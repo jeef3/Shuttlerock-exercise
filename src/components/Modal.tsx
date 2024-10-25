@@ -8,7 +8,7 @@ const Container = styled.dialog`
   position: fixed;
 
   top: 50px;
-  width: 320px;
+  width: 400px;
   max-width: 90vw;
   padding: 0;
 

@@ -6,8 +6,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import Button from "./Button";
 import Calendar from "./Calendar";
 
-export default function DatPicker() {
-  const [date, setDate] = useState(new Date());
+export default function DatPicker({
+  date,
+  onChange,
+}: {
+  date: Date;
+  onChange?: (date: Date) => void;
+}) {
   const [offset, setOffset] = useState<number>(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,9 +25,9 @@ export default function DatPicker() {
       setOffset(o);
     },
     onDateSelected: (selected) => {
-      setDate(selected.date);
+      setIsOpen(false);
+      onChange?.(selected.date);
       setOffset(0);
-      // setFormValue(selected.date.toISOString());
     },
   });
 

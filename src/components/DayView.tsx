@@ -6,6 +6,8 @@ import CalendarEventRow from "./CalendarEventRow";
 import Button from "./Button";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import DayPicker from "./DayPicker";
+import { EmptyList } from "./atoms/EmptyList";
+import CalendarEventRowLoading from "./CalendarEventRowLoading";
 
 export default function DayView() {
   const { data: calendarEvents } = useCalendarEvents();
@@ -56,18 +58,26 @@ export default function DayView() {
         <Button onClick={handlePreviousClick} title="Previous day">
           <IconChevronLeft size="19px" />
         </Button>
-        <DayPicker />
+        <DayPicker date={date} onChange={setDate} />
         <Button onClick={handleNextClick} title="Next day">
           <IconChevronRight size="19px" />
         </Button>
       </div>
 
       <ListContainer>
-        {!dayEvents
-          ? "Loading"
-          : dayEvents.map((event) => (
-              <CalendarEventRow key={event.id} event={event} oneLine />
-            ))}
+        {!dayEvents ? (
+          <>
+            <CalendarEventRowLoading oneLine />
+            <CalendarEventRowLoading oneLine />
+            <CalendarEventRowLoading oneLine />
+          </>
+        ) : !dayEvents.length ? (
+          <EmptyList>No events today</EmptyList>
+        ) : (
+          dayEvents.map((event) => (
+            <CalendarEventRow key={event.id} event={event} oneLine />
+          ))
+        )}
       </ListContainer>
     </div>
   );

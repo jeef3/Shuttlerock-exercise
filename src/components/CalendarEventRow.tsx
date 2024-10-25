@@ -84,22 +84,24 @@ export default function CalendarEventRow({
         </div>
       </CalendarDetail>
 
-      <div
-        style={{
-          gridArea: "edit",
-          alignSelf: "start",
-          padding: 8,
-          display: "flex",
-          gap: 4,
-        }}
-      >
-        <Button onClick={handleEditClick} title="Edit calendar event">
-          <IconPencil size="1em" />
-        </Button>
-        <Button onClick={handleDeleteClick} title="Delete calendar event">
-          <IconTrash size="1em" />
-        </Button>
-      </div>
+      {!event.external && (
+        <div
+          style={{
+            gridArea: "edit",
+            alignSelf: "start",
+            padding: 8,
+            display: "flex",
+            gap: 4,
+          }}
+        >
+          <Button onClick={handleEditClick} title="Edit calendar event">
+            <IconPencil size="1em" />
+          </Button>
+          <Button onClick={handleDeleteClick} title="Delete calendar event">
+            <IconTrash size="1em" />
+          </Button>
+        </div>
+      )}
     </CalendarRowContainer>
   );
 }

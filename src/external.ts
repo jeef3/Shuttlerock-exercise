@@ -18,10 +18,14 @@ function getPhaseName(phase: MoonPhase) {
 function moonPhaseToEvent(phase: MoonPhase): CalendarEvent {
   return {
     id: `phase-${phase.Date}-${phase.Phase}`,
+
     title: getPhaseName(phase),
     description: "",
+
     start: phase.Date,
     end: phase.Date,
+
+    external: true,
   };
 }
 

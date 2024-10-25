@@ -7,6 +7,8 @@ export interface CalendarEvent {
   start: string;
   end: string;
   allDay?: boolean;
+
+  external: boolean;
 }
 
 export interface MoonPhase {

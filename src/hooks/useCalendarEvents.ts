@@ -2,11 +2,19 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "../api";
 import { CalendarEvent } from "../types";
+import { external } from "../external";
 
 export function useCalendarEvents() {
   return useQuery({
     queryKey: ["events"],
-    queryFn: () => api.events.list(),
+    queryFn: async () => {
+      const results = await Promise.all([
+        api.events.list(),
+        external.moonPhase("2024"),
+      ]);
+
+      return results.flat();
+    },
   });
 }
 

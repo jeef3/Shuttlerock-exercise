@@ -8,3 +8,17 @@ export interface CalendarEvent {
   end: string;
   allDay?: boolean;
 }
+
+export interface MoonPhase {
+  Date: string;
+
+  /**
+   * Moon phase:
+   *
+   *  * 0 = New moon
+   *  * 1 = First quarter
+   *  * 2 = Full moon
+   *  * 3 = Last quarter
+   */
+  Phase: 0 | 1 | 2 | 3;
+}

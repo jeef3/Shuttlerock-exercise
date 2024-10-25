@@ -25,6 +25,7 @@ export const CalendarRowContainer = styled.div<{ $showDate?: boolean }>`
 export const CalendarDate = styled.div<{ $today?: boolean }>`
   grid-area: date;
 
+  width: 32px;
   margin: 8px 0;
   padding: 4px 18px;
 

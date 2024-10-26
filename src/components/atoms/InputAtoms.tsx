@@ -5,8 +5,6 @@ export const Container = styled.div`
   z-index: 0;
   display: block;
 
-  padding: 28px;
-
   border-radius: 4px;
   background: white;
 
@@ -31,7 +29,16 @@ export const Container = styled.div`
     cursor: pointer;
   }
 
+  textarea {
+    resize: none;
+  }
+
+  input {
+    line-height: 1;
+  }
+
   input,
+  textarea,
   select {
     transition: all 200ms ease-in-out;
   }
@@ -39,58 +46,59 @@ export const Container = styled.div`
   input:hover:not(:disabled):not(:read-only),
   textarea:hover:not(:disabled):not(:read-only),
   select:hover:not(:disabled):not(:read-only) {
-    border-color: blue;
+    border-color: hsl(220 80% 80%);
   }
 
   input:focus,
+  textarea:focus,
   select:focus {
-    border-color: blue;
-    background: pink;
+    border-color: hsl(220 85% 60%) !important;
+    background: white;
 
     outline: 0;
-    box-shadow: 0 0 0 3px blue;
+    box-shadow: 0 0 0 2px hsl(220 80% 80%);
   }
 
   input:disabled,
   input:read-only,
   textarea:disabled,
-  select:disabled {
+  textarea:read-only,
+  select:disabled,
+  select:read-only {
     cursor: not-allowed;
-    color: lime;
-    -webkit-text-fill-color: lime;
+    color: hsl(0 0% 50%);
+    -webkit-text-fill-color: hsl(0 0% 50%);
     font-style: italic;
 
-    background: red;
+    background: hsl(0 0 95%);
   }
 `;
 
 export const Label = styled.label`
-  pointer-events: none;
-
-  display: block;
-  position: relative;
+  position: absolute;
   z-index: 1;
+  top: 6px;
+  left: 9px;
+
+  pointer-events: none;
 
   line-height: 16px;
   font-size: 12px;
-  color: red;
+  color: hsl(0 0% 60%);
 `;
 
 export const Control = styled.div`
-  position: absolute;
   box-sizing: border-box;
   display: block;
   width: 100%;
   margin: 0;
-  padding: 16px;
-  top: 0;
-  left: 0;
+  padding: 20px 8px 8px;
 
-  font-size: 14px;
-  color: pink;
+  font-size: 16px;
+  color: hsl(0 0% 10%);
 
   border: solid 1px;
-  border-color: blue;
+  border-color: hsl(0 0% 70%);
 
   border-radius: 4px;
   background: transparent;

@@ -10,6 +10,8 @@ import { IconDeviceFloppy } from "@tabler/icons-react";
 import { useMutateCalendarEvent } from "../hooks/useCalendarEvents";
 import { dateToInputDate } from "../util/date";
 import Input from "../components/Input";
+import TextArea from "../components/TextArea";
+import { FormControls, FormRow } from "../components/atoms/Form";
 
 export default function AddEditEventModal({
   event,
@@ -61,33 +63,25 @@ export default function AddEditEventModal({
         <fieldset disabled={formState.isSubmitting}>
           <ModalHeader title="Add Event" onClose={onClose} />
 
-          <div>
-            <Input label="Name" />
-            <label>
-              Name
-              <input
-                required
-                type="text"
-                name="title"
-                disabled={formState.isSubmitting}
-                value={formData.title}
-                onChange={handleChange}
-              />
-            </label>
+          <FormControls>
+            <Input
+              label="Name"
+              required
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+            />
 
-            <label>
-              Description
-              <textarea
-                name="description"
-                disabled={formState.isSubmitting}
-                value={formData.description}
-                onChange={handleChange}
-              />
-            </label>
+            <TextArea
+              label="Description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
 
-            <label>
-              Starts
-              <input
+            <FormRow>
+              <Input
+                label="Starts"
                 required
                 type="datetime-local"
                 name="start"
@@ -95,11 +89,9 @@ export default function AddEditEventModal({
                 value={dateToInputDate(new Date(formData.start))}
                 onChange={handleChange}
               />
-            </label>
 
-            <label>
-              Ends
-              <input
+              <Input
+                label="Ends"
                 required
                 type="datetime-local"
                 name="end"
@@ -107,7 +99,7 @@ export default function AddEditEventModal({
                 value={dateToInputDate(new Date(formData.end))}
                 onChange={handleChange}
               />
-            </label>
+            </FormRow>
 
             <label>
               All day?
@@ -133,7 +125,7 @@ export default function AddEditEventModal({
                 <option value="yearly">Yearly</option>
               </select>
             </label>
-          </div>
+          </FormControls>
 
           <ModalFooter
             buttons={

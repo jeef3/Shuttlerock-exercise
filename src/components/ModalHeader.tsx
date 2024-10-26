@@ -5,7 +5,7 @@ import Button from "./Button";
 import styled from "styled-components";
 
 const Container = styled.header`
-  padding: 16px;
+  padding: 16px 16px 0;
 
   display: flex;
   align-items: center;

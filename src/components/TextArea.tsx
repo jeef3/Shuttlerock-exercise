@@ -1,11 +1,11 @@
 import { forwardRef, useId } from "react";
 import { Container, Control, Label } from "./atoms/InputAtoms";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   label: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const TextArea = forwardRef<HTMLTextAreaElement, InputProps>(
   ({ label, ...rest }, ref) => {
     const id = useId();
 
@@ -15,10 +15,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <span>{label}</span>
         </Label>
 
-        <Control id={id} as="input" ref={ref} {...rest} />
+        <Control id={id} as="textarea" ref={ref} {...rest} />
       </Container>
     );
   },
 );
 
-export default Input;
+export default TextArea;

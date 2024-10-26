@@ -22,6 +22,8 @@ export default function AddEditEventModal({
 }) {
   const { mutateAsync: addOrUpdateEvent } = useMutateCalendarEvent();
 
+  const newEvent = useMemo(() => !event?.id, [event]);
+
   const defaultDates = useMemo(() => {
     const start = new Date();
 
@@ -61,7 +63,10 @@ export default function AddEditEventModal({
     <Modal>
       <form onSubmit={onSubmit}>
         <fieldset disabled={formState.isSubmitting}>
-          <ModalHeader title="Add Event" onClose={onClose} />
+          <ModalHeader
+            title={newEvent ? "Add Event" : "Edit Event"}
+            onClose={onClose}
+          />
 
           <FormControls>
             <Input
@@ -134,11 +139,13 @@ export default function AddEditEventModal({
                 <Button $type="action" type="submit">
                   {formState.isSubmitting ? (
                     <>
-                      <IconDeviceFloppy size="1em" /> Saving…
+                      <IconDeviceFloppy size="1em" />{" "}
+                      {newEvent ? "Adding event…" : "Updating event…"}
                     </>
                   ) : (
                     <>
-                      <IconDeviceFloppy size="1em" /> Save
+                      <IconDeviceFloppy size="1em" />{" "}
+                      {newEvent ? "Add event" : "Update event"}
                     </>
                   )}
                 </Button>

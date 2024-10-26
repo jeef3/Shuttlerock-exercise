@@ -23,7 +23,7 @@ export default function ModalHeader({
     <Container>
       <h2>{title}</h2>
 
-      <Button onClick={onClose}>
+      <Button onClick={onClose} title="Close">
         <IconX size="1em" />
       </Button>
     </Container>

@@ -34,7 +34,7 @@ export default function DeleteCalendarEventModal({
         buttons={
           <>
             <Button disabled={isPending} onClick={onClose}>
-              Close
+              No, take me back
             </Button>
             <Button
               $type="destructive"
@@ -47,7 +47,7 @@ export default function DeleteCalendarEventModal({
                 </>
               ) : (
                 <>
-                  <IconTrash size="1em" /> Delete event
+                  <IconTrash size="1em" /> Yes, delete event
                 </>
               )}
             </Button>

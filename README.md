@@ -20,6 +20,12 @@ And start the JSON DB server
 $ pnpm run server
 ```
 
+Run the tests
+
+``` sh
+$ pnpm run test
+```
+
 ## Screenshots
 
 ### Day View

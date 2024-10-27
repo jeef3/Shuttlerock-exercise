@@ -85,12 +85,14 @@ function App() {
             <Button $active={view === "list"} onClick={() => setView("list")}>
               <IconListDetails size="1em" /> List
             </Button>
+            {/*
             <Button $active={view === "week"} onClick={() => setView("week")}>
               <IconCalendarWeek size="1em" /> Week
             </Button>
             <Button $active={view === "month"} onClick={() => setView("month")}>
               <IconCalendarMonth size="1em" /> Month
             </Button>
+*/}
           </ButtonGroup>
         </header>
 

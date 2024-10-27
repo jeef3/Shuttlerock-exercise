@@ -59,11 +59,13 @@ export const recurrenceService = {
   ): {
     updatedEvents: Pick<CalendarEvent, "id" | "title" | "description">[];
   } {
-    const updatedEvents = recurrence.recurrences.map((r) => ({
-      id: r.calendarEventId!,
-      title,
-      description,
-    }));
+    const updatedEvents = recurrence.recurrences
+      .filter((r) => r.calendarEventId)
+      .map((r) => ({
+        id: r.calendarEventId!,
+        title,
+        description,
+      }));
 
     return { updatedEvents };
   },

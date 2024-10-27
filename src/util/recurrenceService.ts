@@ -1,7 +1,49 @@
-import type { Recurrence, RecurrenceCalendarEvent } from "../types";
+import type {
+  CalendarEvent,
+  Recurrence,
+  RecurrenceCalendarEvent,
+  RecurrenceFrequency,
+} from "../types";
+import { generateRecurrences } from "./recurrence";
 
 export const recurrenceService = {
-  deleteEvent(
+  createRecurringEvent(
+    recurrence: Recurrence,
+    event: Omit<CalendarEvent, "id">,
+    count: number = 10,
+  ): {
+    eventsToCreate: Omit<CalendarEvent, "id">[];
+  } {
+    const slots = generateRecurrences(
+      new Date(event.start),
+      recurrence.frequency,
+      count,
+    );
+
+    event.recurrenceId = recurrence.id;
+
+    const duration =
+      new Date(event.end).getTime() - new Date(event.start).getTime();
+
+    const eventsToCreate = [];
+
+    for (const slot of slots) {
+      eventsToCreate.push({
+        ...event,
+
+        start: slot.toISOString(),
+        end: new Date(slot.getTime() + duration).toISOString(),
+      });
+    }
+
+    return {
+      eventsToCreate,
+    };
+  },
+
+  updateRecurringEvent(event: CalendarEvent, frequency: RecurrenceFrequency) {},
+
+  deleteRecurringEvent(
     recurrence: Recurrence,
     eventId: string,
     deleteFutureEvents: boolean = false,

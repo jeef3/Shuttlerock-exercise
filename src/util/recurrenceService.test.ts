@@ -5,7 +5,7 @@ import type { Recurrence } from "../types";
 
 const recurrence: Recurrence = {
   id: "abc",
-  repeat: "weekly",
+  frequency: "weekly",
   recurrences: [
     {
       calendarEventId: "1",
@@ -26,14 +26,61 @@ const recurrence: Recurrence = {
 };
 
 describe("RecurrenceService", () => {
-  describe("deleteEvent", () => {
-    test("Can delete a single event from a recurring event", () => {
-      const updates = recurrenceService.deleteEvent(recurrence, "2");
+  describe("createRecurringEvent", () => {
+    test("Can create a recurring event", () => {
+      const { updatedRecurrences, eventsToCreate } =
+        recurrenceService.createRecurringEvent(
+          {
+            id: "a",
+            frequency: "weekly",
+            recurrences: [],
+          },
+          {
+            title: "Weekly Event",
+            description: "An event that repeats weekly",
+            start: "2020-01-01",
+            end: "2020-01-01",
 
-      expect(updates.updatedRecurrences).not.toBe(recurrence.recurrences);
-      expect(updates.eventsToDelete.length).toEqual(1);
-      expect(updates.eventsToDelete[0]).toEqual("2");
-      expect(updates.updatedRecurrences).toEqual([
+            recurrenceId: "a",
+
+            external: false,
+          },
+          3,
+        );
+
+      expect(updatedRecurrences).toEqual([
+        {
+          date: "2020-01-01",
+          modified: false,
+        },
+        {
+          date: "2020-01-08",
+          modified: false,
+        },
+        {
+          date: "2020-01-15",
+          modified: false,
+        },
+      ]);
+      expect(eventsToCreate.length).toBe(3);
+      expect(eventsToCreate[0].recurrenceId).toBe("a");
+      expect(eventsToCreate[0].start).toBe("2020-01-01");
+      expect(eventsToCreate[1].recurrenceId).toBe("a");
+      expect(eventsToCreate[1].start).toBe("2020-01-08");
+      expect(eventsToCreate[2].recurrenceId).toBe("a");
+      expect(eventsToCreate[2].start).toBe("2020-01-15");
+    });
+  });
+
+  describe("deleteRecurringEvent", () => {
+    test("Can delete a single event from a recurring event", () => {
+      const { updatedRecurrences, eventsToDelete } =
+        recurrenceService.deleteRecurringEvent(recurrence, "2");
+
+      expect(updatedRecurrences).not.toBe(recurrence.recurrences);
+      expect(eventsToDelete.length).toEqual(1);
+      expect(eventsToDelete[0]).toEqual("2");
+      expect(updatedRecurrences).toEqual([
         {
           calendarEventId: "1",
           date: "2020-01-01",
@@ -53,13 +100,14 @@ describe("RecurrenceService", () => {
     });
 
     test("Can delete future events from a recurring event", () => {
-      const updates = recurrenceService.deleteEvent(recurrence, "2", true);
+      const { updatedRecurrences, eventsToDelete } =
+        recurrenceService.deleteRecurringEvent(recurrence, "2", true);
 
-      expect(updates.updatedRecurrences).not.toBe(recurrence.recurrences);
-      expect(updates.eventsToDelete.length).toEqual(2);
-      expect(updates.eventsToDelete[0]).toEqual("2");
-      expect(updates.eventsToDelete[1]).toEqual("3");
-      expect(updates.updatedRecurrences).toEqual([
+      expect(updatedRecurrences).not.toBe(recurrence.recurrences);
+      expect(eventsToDelete.length).toEqual(2);
+      expect(eventsToDelete[0]).toEqual("2");
+      expect(eventsToDelete[1]).toEqual("3");
+      expect(updatedRecurrences).toEqual([
         {
           calendarEventId: "1",
           date: "2020-01-01",
@@ -79,35 +127,36 @@ describe("RecurrenceService", () => {
     });
 
     test("Deleting all recurring events deletes the recurrence", () => {
-      const updates = recurrenceService.deleteEvent(
-        {
-          id: "abc",
-          repeat: "weekly",
-          recurrences: [
-            {
-              calendarEventId: null,
-              date: "2020-01-01",
-              modified: true,
-            },
-            {
-              calendarEventId: "2",
-              date: "2020-01-08",
-              modified: false,
-            },
-            {
-              calendarEventId: null,
-              date: "2020-01-15",
-              modified: true,
-            },
-          ],
-        },
-        "2",
-        true,
-      );
+      const { updatedRecurrences, eventsToDelete } =
+        recurrenceService.deleteRecurringEvent(
+          {
+            id: "abc",
+            frequency: "weekly",
+            recurrences: [
+              {
+                calendarEventId: null,
+                date: "2020-01-01",
+                modified: true,
+              },
+              {
+                calendarEventId: "2",
+                date: "2020-01-08",
+                modified: false,
+              },
+              {
+                calendarEventId: null,
+                date: "2020-01-15",
+                modified: true,
+              },
+            ],
+          },
+          "2",
+          true,
+        );
 
-      expect(updates.updatedRecurrences).toBe(null);
-      expect(updates.eventsToDelete.length).toEqual(1);
-      expect(updates.eventsToDelete[0]).toEqual("2");
+      expect(updatedRecurrences).toBe(null);
+      expect(eventsToDelete.length).toEqual(1);
+      expect(eventsToDelete[0]).toEqual("2");
     });
   });
 });

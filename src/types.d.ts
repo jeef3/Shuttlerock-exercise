@@ -11,7 +11,7 @@ export interface RecurrenceCalendarEvent {
 export interface Recurrence {
   id: string;
 
-  repeat: RecurrenceFrequency;
+  frequency: RecurrenceFrequency;
   recurrences: RecurrenceCalendarEvent[];
 }
 

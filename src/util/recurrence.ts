@@ -2,12 +2,13 @@ import { RecurrenceFrequency } from "../types";
 
 const COUNT = 10;
 
-export function generateRecurring(
+export function generateRecurrences(
   date: Date,
   recurrence: RecurrenceFrequency,
+  count: number = COUNT,
 ): Date[] {
   if (recurrence === "weekly") {
-    return Array.from(new Array(COUNT - 1)).reduce(
+    return Array.from(new Array(count - 1)).reduce(
       (p) => {
         const nextDate = new Date(p[p.length - 1]);
         nextDate.setDate(nextDate.getDate() + 7);
@@ -19,7 +20,7 @@ export function generateRecurring(
   }
 
   if (recurrence === "monthly") {
-    return Array.from(new Array(COUNT - 1)).reduce(
+    return Array.from(new Array(count - 1)).reduce(
       (p, _d, i) => {
         const current = p[p.length - 1];
 
@@ -42,7 +43,7 @@ export function generateRecurring(
   }
 
   if (recurrence === "yearly") {
-    return Array.from(new Array(COUNT - 1)).reduce(
+    return Array.from(new Array(count - 1)).reduce(
       (p) => {
         const nextDate = new Date(p[p.length - 1]);
         nextDate.setFullYear(nextDate.getFullYear() + 1);

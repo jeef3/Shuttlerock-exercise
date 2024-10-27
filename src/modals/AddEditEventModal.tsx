@@ -46,7 +46,7 @@ export default function AddEditEventModal({
   const { formData, formState, handleChange, handleSubmit, setError } =
     useForm<CalendarEventViewModel>(
       event
-        ? { ...event, repeat: recurrence?.repeat }
+        ? { ...event, repeat: recurrence?.frequency }
         : {
             title: "",
             description: "",

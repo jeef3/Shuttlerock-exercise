@@ -1,12 +1,12 @@
 import { describe, expect, test } from "vitest";
-import { generateRecurring } from "./recurrence";
+import { generateRecurrences } from "./recurrence";
 
 describe("Recurrence", () => {
   describe("generateRecurring", () => {
     test("It generates 10 recurrences", () => {
       const eventDate = new Date();
 
-      const result = generateRecurring(eventDate, "weekly");
+      const result = generateRecurrences(eventDate, "weekly");
 
       expect(result.length).toBe(10);
     });
@@ -14,7 +14,7 @@ describe("Recurrence", () => {
     test("Weekly recurrences are on the same day each week", () => {
       const eventDate = new Date("2024-01-01");
 
-      const result = generateRecurring(eventDate, "weekly");
+      const result = generateRecurrences(eventDate, "weekly");
 
       expect(result[0].toISOString().slice(0, 10)).toBe("2024-01-01");
       expect(result[1].toISOString().slice(0, 10)).toBe("2024-01-08");
@@ -25,7 +25,7 @@ describe("Recurrence", () => {
     test("Monthly recurrences are on the same date each month", () => {
       const eventDate = new Date("2024-01-10");
 
-      const result = generateRecurring(eventDate, "monthly");
+      const result = generateRecurrences(eventDate, "monthly");
 
       expect(result[0].toISOString().slice(0, 10)).toBe("2024-01-10");
       expect(result[1].toISOString().slice(0, 10)).toBe("2024-02-10");
@@ -36,7 +36,7 @@ describe("Recurrence", () => {
     test("Monthly recurrence dates that don't exist, recure on the last of the month", () => {
       const eventDate = new Date("2024-01-31");
 
-      const result = generateRecurring(eventDate, "monthly");
+      const result = generateRecurrences(eventDate, "monthly");
 
       expect(result[0].toISOString().slice(0, 10)).toBe("2024-01-31");
       expect(result[1].toISOString().slice(0, 10)).toBe("2024-02-29");
@@ -47,7 +47,7 @@ describe("Recurrence", () => {
     test("Yearly recurrences are on the same date each year", () => {
       const eventDate = new Date("2024-01-10");
 
-      const result = generateRecurring(eventDate, "yearly");
+      const result = generateRecurrences(eventDate, "yearly");
 
       expect(result[0].toISOString().slice(0, 10)).toBe("2024-01-10");
       expect(result[1].toISOString().slice(0, 10)).toBe("2025-01-10");

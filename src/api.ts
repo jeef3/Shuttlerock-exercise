@@ -1,6 +1,6 @@
 import { Calendar } from "dayzed";
 import { CalendarEvent, Recurrence, RecurrenceFrequency } from "./types";
-import { generateRecurring } from "./util/recurrence";
+import { generateRecurrences } from "./util/recurrence";
 import { recurrenceService } from "./util/recurrenceService";
 
 const BASE_URL = "http://localhost:3000";
@@ -37,45 +37,32 @@ export const api = {
       event: Omit<CalendarEvent, "id">,
       repeat?: RecurrenceFrequency,
     ): Promise<CalendarEvent> {
-      // This would normally be done server-side, and transactionally.
       if (repeat) {
-        const slots = generateRecurring(new Date(event.start), repeat);
-
         const recurrence = await api.recurrences.create({
-          repeat,
+          frequency: repeat,
           recurrences: [],
         });
 
-        event.recurrenceId = recurrence.id;
-
-        const duration =
-          new Date(event.end).getTime() - new Date(event.start).getTime();
-
-        const repeatEvents = [];
-
-        for (const slot of slots) {
-          repeatEvents.push({
-            ...event,
-
-            start: slot.toISOString(),
-            end: new Date(slot.getTime() + duration).toISOString(),
-          });
-        }
+        const { eventsToCreate } = recurrenceService.createRecurringEvent(
+          recurrence,
+          event,
+        );
 
         // Create all the new events
-        const updatedEvents = await Promise.all(
-          repeatEvents.map((e) => api.events.create(e)),
+        const createdEvents = await Promise.all(
+          eventsToCreate.map((e) => api.events.create(e)),
         );
 
         // And update the recurrence
-        recurrence.recurrences = updatedEvents.map((e) => ({
+        recurrence.recurrences = createdEvents.map((e) => ({
           calendarEventId: e.id,
           date: e.start,
           modified: false,
         }));
+
         await api.recurrences.update(recurrence);
 
-        return updatedEvents[0];
+        return createdEvents[0];
       } else {
         return send<Omit<CalendarEvent, "id">, CalendarEvent>(
           "/events",
@@ -109,11 +96,11 @@ export const api = {
         const recurrence = await (event.recurrenceId
           ? api.recurrences.details(event.recurrenceId)
           : api.recurrences.create({
-              repeat,
+              frequency: repeat,
               recurrences: [],
             }));
 
-        if (repeat != recurrence.repeat) {
+        if (repeat != recurrence.frequency) {
           // TODO: The frequency has changed or is newly created. Generate the
           // repeats.
         }
@@ -156,7 +143,11 @@ export const api = {
         );
 
         const { updatedRecurrences, eventsToDelete } =
-          recurrenceService.deleteEvent(recurrence, id, deleteFutureEvents);
+          recurrenceService.deleteRecurringEvent(
+            recurrence,
+            id,
+            deleteFutureEvents,
+          );
 
         if (!updatedRecurrences) {
           await api.recurrences.delete(recurrence.id);

@@ -44,9 +44,9 @@ Here's what needs to be done:
 
  1. **Integration with Moon API**: Implement functionality to fetch calendar events from the Moon API. This API provides data on moon
 phases for specific dates.
-    - Moon API GitHub - CraigChamberlain/moon-data: static json api
+    - Moon API GitHub — [CraigChamberlain/moon-data: static json api](https://github.com/CraigChamberlain/moon-data)
       - e.g. https://craigchamberlain.github.io/moon-data/api/moon-phase-data/2023/
- 2. Display Third-Party Events: Update the event list component to incorporate fetched events from the Moon API. These events will be
+ 2. **Display Third-Party Events**: Update the event list component to incorporate fetched events from the Moon API. These events will be
 displayed alongside user-created events, providing users with a comprehensive view of their schedule.
 
 ### Phase Three: Implementing Recurring Events

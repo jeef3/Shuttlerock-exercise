@@ -22,7 +22,7 @@ export function useCalendarEvents() {
   return useQuery({
     queryKey: ["events"],
     queryFn: async () => {
-      const results = await Promise.all([api.events.list(), moonPhases]);
+      const results = await Promise.all([api.events.list(), moonPhases!]);
 
       return results.flat();
     },

@@ -39,7 +39,7 @@ export function useMutateCalendarEvent() {
       const { repeat, ...eventOnly } = event;
 
       const result = await (event.id
-        ? api.events.update(eventOnly as CalendarEvent, repeat, false)
+        ? api.events.update(eventOnly as CalendarEvent)
         : api.events.create(eventOnly, repeat));
 
       return result;

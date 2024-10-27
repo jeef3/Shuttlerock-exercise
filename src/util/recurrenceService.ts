@@ -41,7 +41,32 @@ export const recurrenceService = {
     };
   },
 
-  updateRecurringEvent(event: CalendarEvent, frequency: RecurrenceFrequency) {},
+  updateRecurrences(events: CalendarEvent[]): {
+    updatedRecurrences: RecurrenceCalendarEvent[];
+  } {
+    const updatedRecurrences = events.map((e) => ({
+      calendarEventId: e.id,
+      date: e.start,
+      modified: false,
+    }));
+
+    return { updatedRecurrences };
+  },
+
+  updateRecurringEvent(
+    recurrence: Recurrence,
+    { title, description }: { title: string; description?: string },
+  ): {
+    updatedEvents: Pick<CalendarEvent, "id" | "title" | "description">[];
+  } {
+    const updatedEvents = recurrence.recurrences.map((r) => ({
+      id: r.calendarEventId!,
+      title,
+      description,
+    }));
+
+    return { updatedEvents };
+  },
 
   deleteRecurringEvent(
     recurrence: Recurrence,

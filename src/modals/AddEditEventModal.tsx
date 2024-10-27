@@ -118,20 +118,10 @@ export default function AddEditEventModal({
             </FormRow>
 
             <label>
-              All day?
-              <input
-                type="checkbox"
-                name="allDay"
-                disabled={formState.isSubmitting}
-                checked={formData.allDay}
-                onChange={handleChange}
-              />
-            </label>
-
-            <label>
               Repeat
               <select
                 name="repeat"
+                disabled={!isNewEvent}
                 value={formData.repeat}
                 onChange={handleChange}
               >

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { recurrenceService } from "./recurrenceService";
-import type { Recurrence } from "../types";
+import type { CalendarEvent, Recurrence } from "../types";
 
 const recurrence: Recurrence = {
   id: "abc",
@@ -54,6 +54,80 @@ describe("RecurrenceService", () => {
       expect(eventsToCreate[1].start).toBe("2020-01-08T00:00:00.000Z");
       expect(eventsToCreate[2].recurrenceId).toBe("a");
       expect(eventsToCreate[2].start).toBe("2020-01-15T00:00:00.000Z");
+    });
+  });
+
+  describe("updateRecurrences", () => {
+    test("Can update the recurrences given a list of events", () => {
+      const recurrence: Recurrence = {
+        id: "a",
+        frequency: "weekly",
+        recurrences: [],
+      };
+      const { eventsToCreate } = recurrenceService.createRecurringEvent(
+        recurrence,
+        {
+          title: "Weekly Event",
+          description: "An event that repeats weekly",
+          start: "2020-01-01",
+          end: "2020-01-01",
+
+          recurrenceId: "a",
+
+          external: false,
+        },
+        3,
+      );
+      // Generate fake ids
+      const events: CalendarEvent[] = eventsToCreate.map((e, i) => ({
+        ...e,
+        id: String(i),
+      }));
+
+      const { updatedRecurrences } =
+        recurrenceService.updateRecurrences(events);
+
+      expect(updatedRecurrences.length).toBe(3);
+      expect(updatedRecurrences[0]).toEqual({
+        calendarEventId: "0",
+        date: "2020-01-01T00:00:00.000Z",
+        modified: false,
+      });
+      expect(updatedRecurrences[1]).toEqual({
+        calendarEventId: "1",
+        date: "2020-01-08T00:00:00.000Z",
+        modified: false,
+      });
+      expect(updatedRecurrences[2]).toEqual({
+        calendarEventId: "2",
+        date: "2020-01-15T00:00:00.000Z",
+        modified: false,
+      });
+    });
+  });
+
+  describe("updateRecurringEvent", () => {
+    test("Can update title and description of a recurring event", () => {
+      const { updatedEvents } = recurrenceService.updateRecurringEvent(
+        recurrence,
+        { title: "New title", description: "New description" },
+      );
+
+      expect(updatedEvents[0]).toEqual({
+        id: "1",
+        title: "New title",
+        description: "New description",
+      });
+      expect(updatedEvents[1]).toEqual({
+        id: "2",
+        title: "New title",
+        description: "New description",
+      });
+      expect(updatedEvents[2]).toEqual({
+        id: "3",
+        title: "New title",
+        description: "New description",
+      });
     });
   });
 

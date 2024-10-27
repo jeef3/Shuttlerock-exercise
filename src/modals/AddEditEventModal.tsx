@@ -4,14 +4,17 @@ import Modal from "../components/Modal";
 import ModalHeader from "../components/ModalHeader";
 import ModalFooter from "../components/ModalFooter";
 import useForm from "../hooks/useForm";
-import { CalendarEvent } from "../types";
 import Button from "../components/Button";
 import { IconDeviceFloppy } from "@tabler/icons-react";
-import { useMutateCalendarEvent } from "../hooks/useCalendarEvents";
+import {
+  useMutateCalendarEvent,
+  useRecurrence,
+} from "../hooks/useCalendarEvents";
 import { dateToInputDate } from "../util/date";
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
 import { FormControls, FormRow } from "../components/atoms/Form";
+import type { CalendarEvent, CalendarEventViewModel } from "../types";
 
 export default function AddEditEventModal({
   event,
@@ -20,6 +23,7 @@ export default function AddEditEventModal({
   event?: CalendarEvent | null;
   onClose?: () => void;
 }) {
+  const { data: recurrence } = useRecurrence(event?.recurrenceId);
   const { mutateAsync: addOrUpdateEvent } = useMutateCalendarEvent();
 
   const newEvent = useMemo(() => !event?.id, [event]);
@@ -37,18 +41,18 @@ export default function AddEditEventModal({
   }, []);
 
   const { formData, formState, handleChange, handleSubmit, setError } =
-    useForm<CalendarEvent>(
+    useForm<CalendarEventViewModel>(
       event ??
         ({
           start: defaultDates.start,
           end: defaultDates.end,
           allDay: false,
-        } as CalendarEvent),
+        } as CalendarEventViewModel),
     );
 
   const onSubmit = useCallback(
     (e: FormEvent) =>
-      void handleSubmit(async (event: CalendarEvent) => {
+      void handleSubmit(async (event: CalendarEventViewModel) => {
         try {
           await addOrUpdateEvent(event);
           onClose?.();
@@ -118,13 +122,13 @@ export default function AddEditEventModal({
             </label>
 
             <label>
-              Recurring?
-              <input type="checkbox" />
-            </label>
-
-            <label>
-              Recurrence
-              <select name="recurrence">
+              Repeat
+              <select
+                name="repeat"
+                value={formData.repeat}
+                onChange={handleChange}
+              >
+                <option value="">Once only</option>
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="yearly">Yearly</option>

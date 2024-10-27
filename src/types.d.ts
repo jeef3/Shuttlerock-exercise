@@ -4,6 +4,11 @@ export interface Recurrence {
   id: string;
 
   repeat: RecurrenceFrequency;
+  recurrences: {
+    calendarEventId: string;
+    date: string;
+    modified: boolean;
+  }[];
 }
 
 export interface CalendarEvent {
@@ -16,7 +21,7 @@ export interface CalendarEvent {
   end: string;
   allDay?: boolean;
 
-  recurrenceId: string;
+  recurrenceId?: string;
 
   external: boolean;
 }
@@ -33,4 +38,8 @@ export interface MoonPhase {
    *  * 3 = Last quarter
    */
   Phase: 0 | 1 | 2 | 3;
+}
+
+export interface CalendarEventViewModel extends CalendarEvent {
+  repeat?: RecurrenceFrequency;
 }

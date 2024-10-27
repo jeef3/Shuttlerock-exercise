@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { api } from "../api";
 import { external } from "../external";
-import type { CalendarEvent, RecurrenceFrequency } from "../types";
+import type { CalendarEvent, CalendarEventViewModel } from "../types";
 
 export function useCalendarEvents() {
   return useQuery({
@@ -10,6 +10,8 @@ export function useCalendarEvents() {
     queryFn: async () => {
       const results = await Promise.all([
         api.events.list(),
+
+        // TODO: Cache this one
         external.moonPhase("2024"),
       ]);
 
@@ -23,10 +25,12 @@ export function useMutateCalendarEvent() {
 
   return useMutation({
     mutationKey: ["events"],
-    mutationFn: async (event: CalendarEvent) => {
+    mutationFn: async (event: CalendarEventViewModel) => {
+      const { repeat, ...eventOnly } = event;
+
       const result = await (event.id
-        ? api.events.update(event)
-        : api.events.create(event));
+        ? api.events.update(eventOnly)
+        : api.events.create(eventOnly, repeat));
 
       return result;
     },
@@ -41,5 +45,13 @@ export function useDeleteCalendarEvent() {
     mutationKey: ["events"],
     mutationFn: (event: CalendarEvent) => api.events.delete(event.id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["events"] }),
+  });
+}
+
+export function useRecurrence(id?: string) {
+  return useQuery({
+    queryKey: ["recurrences", id],
+    queryFn: () => api.recurrences.details(id!),
+    enabled: !!id,
   });
 }

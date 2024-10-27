@@ -1,4 +1,5 @@
-import { CalendarEvent, Recurrence } from "./types";
+import { CalendarEvent, Recurrence, RecurrenceFrequency } from "./types";
+import { generateRecurring } from "./util/recurrence";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -30,8 +31,59 @@ export const api = {
       return send<CalendarEvent>(`/events/${id}`, "GET");
     },
 
-    async create(event: CalendarEvent) {
-      return send<CalendarEvent>("/events", "POST", event);
+    async create(event: CalendarEvent, repeat?: RecurrenceFrequency) {
+      // This would normally be done server-side, and transactional.
+      if (repeat) {
+        console.log("Repeating", repeat);
+        const slots = generateRecurring(new Date(event.start), repeat);
+
+        const recurrence = await send<Partial<Recurrence>, Recurrence>(
+          "/recurrences",
+          "POST",
+          {
+            repeat,
+            recurrences: [],
+          },
+        );
+
+        event.recurrenceId = recurrence.id;
+
+        const duration =
+          new Date(event.end).getTime() - new Date(event.start).getTime();
+
+        const repeatEvents = [];
+
+        for (const slot of slots) {
+          repeatEvents.push({
+            ...event,
+
+            start: slot.toISOString(),
+            end: new Date(slot.getTime() + duration).toISOString(),
+          });
+        }
+
+        // Create all the new events
+        const updatedEvents = await Promise.all(
+          repeatEvents.map((e) => send("/events", "POST", e)),
+        );
+
+        // And update the recurrence
+        recurrence.recurrences = updatedEvents.map((e) => ({
+          calendarEventId: e.id,
+          date: e.start,
+          modified: false,
+        }));
+
+        await send<Recurrence>(
+          `/recurrences/${recurrence.id}`,
+          "PUT",
+          recurrence,
+        );
+
+        return updatedEvents[0];
+      } else {
+        return send<CalendarEvent>("/events", "POST", event);
+      }
     },
 
     async update(event: CalendarEvent) {

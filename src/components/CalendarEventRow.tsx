@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useModal } from "react-modal-hook";
-import { IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconPencil, IconRepeat, IconTrash } from "@tabler/icons-react";
 
 import Button from "./Button";
 import TimeSpan from "./TimeSpan";
@@ -74,7 +74,8 @@ export default function CalendarEventRow({
       )}
 
       <CalendarTime>
-        <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />
+        <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />{" "}
+        {event.recurrenceId && <IconRepeat size="1em" />}
       </CalendarTime>
 
       <CalendarDetail $oneLine={oneLine}>

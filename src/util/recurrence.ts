@@ -2,7 +2,10 @@ import { RecurrenceFrequency } from "../types";
 
 const COUNT = 10;
 
-export function generateRecurring(date: Date, recurrence: RecurrenceFrequency) {
+export function generateRecurring(
+  date: Date,
+  recurrence: RecurrenceFrequency,
+): Date[] {
   if (recurrence === "weekly") {
     return Array.from(new Array(COUNT - 1)).reduce(
       (p) => {

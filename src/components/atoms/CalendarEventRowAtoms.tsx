@@ -43,7 +43,11 @@ export const CalendarTime = styled.div`
 
   padding: 0 8px;
 
+  color: hsl(0 0% 70%);
+  font-size: 12px;
+
   display: flex;
+  gap: 4px;
   align-items: center;
 `;
 

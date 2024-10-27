@@ -2,7 +2,6 @@ import type {
   CalendarEvent,
   Recurrence,
   RecurrenceCalendarEvent,
-  RecurrenceFrequency,
 } from "../types";
 import { generateRecurrences } from "./recurrence";
 

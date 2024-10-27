@@ -28,47 +28,32 @@ const recurrence: Recurrence = {
 describe("RecurrenceService", () => {
   describe("createRecurringEvent", () => {
     test("Can create a recurring event", () => {
-      const { updatedRecurrences, eventsToCreate } =
-        recurrenceService.createRecurringEvent(
-          {
-            id: "a",
-            frequency: "weekly",
-            recurrences: [],
-          },
-          {
-            title: "Weekly Event",
-            description: "An event that repeats weekly",
-            start: "2020-01-01",
-            end: "2020-01-01",
-
-            recurrenceId: "a",
-
-            external: false,
-          },
-          3,
-        );
-
-      expect(updatedRecurrences).toEqual([
+      const { eventsToCreate } = recurrenceService.createRecurringEvent(
         {
-          date: "2020-01-01",
-          modified: false,
+          id: "a",
+          frequency: "weekly",
+          recurrences: [],
         },
         {
-          date: "2020-01-08",
-          modified: false,
+          title: "Weekly Event",
+          description: "An event that repeats weekly",
+          start: "2020-01-01",
+          end: "2020-01-01",
+
+          recurrenceId: "a",
+
+          external: false,
         },
-        {
-          date: "2020-01-15",
-          modified: false,
-        },
-      ]);
+        3,
+      );
+
       expect(eventsToCreate.length).toBe(3);
       expect(eventsToCreate[0].recurrenceId).toBe("a");
-      expect(eventsToCreate[0].start).toBe("2020-01-01");
+      expect(eventsToCreate[0].start).toBe("2020-01-01T00:00:00.000Z");
       expect(eventsToCreate[1].recurrenceId).toBe("a");
-      expect(eventsToCreate[1].start).toBe("2020-01-08");
+      expect(eventsToCreate[1].start).toBe("2020-01-08T00:00:00.000Z");
       expect(eventsToCreate[2].recurrenceId).toBe("a");
-      expect(eventsToCreate[2].start).toBe("2020-01-15");
+      expect(eventsToCreate[2].start).toBe("2020-01-15T00:00:00.000Z");
     });
   });
 

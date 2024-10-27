@@ -1,0 +1,474 @@
+{
+  "recurrences": [
+    {
+      "id": "75ec",
+      "frequency": "weekly",
+      "recurrences": [
+        {
+          "calendarEventId": "b5b1",
+          "date": "2024-10-26T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "7161",
+          "date": "2024-11-02T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "f405",
+          "date": "2024-11-09T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "1aaa",
+          "date": "2024-11-16T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "c628",
+          "date": "2024-11-23T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "e51f",
+          "date": "2024-11-30T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "96cc",
+          "date": "2024-12-07T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "5016",
+          "date": "2024-12-14T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "c347",
+          "date": "2024-12-21T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "5aff",
+          "date": "2024-12-28T21:00:00.000Z",
+          "modified": false
+        }
+      ]
+    },
+    {
+      "id": "297e",
+      "frequency": "monthly",
+      "recurrences": [
+        {
+          "calendarEventId": "57a2",
+          "date": "2024-10-19T20:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "a0c0",
+          "date": "2024-11-19T20:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "8955",
+          "date": "2024-12-19T20:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "3b05",
+          "date": "2025-01-30T20:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "998c",
+          "date": "2025-02-19T20:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "a47a",
+          "date": "2025-03-19T20:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "5e7f",
+          "date": "2025-04-19T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "e261",
+          "date": "2025-05-19T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "bf75",
+          "date": "2025-06-19T21:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "f71b",
+          "date": "2025-07-19T21:00:00.000Z",
+          "modified": false
+        }
+      ]
+    },
+    {
+      "id": "cacd",
+      "frequency": "yearly",
+      "recurrences": [
+        {
+          "calendarEventId": "0c88",
+          "date": "2024-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "b563",
+          "date": "2025-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "f5bd",
+          "date": "2026-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "a473",
+          "date": "2027-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "e3a5",
+          "date": "2028-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "72d9",
+          "date": "2029-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "f06d",
+          "date": "2030-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "4e7a",
+          "date": "2031-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "1311",
+          "date": "2032-12-24T19:00:00.000Z",
+          "modified": false
+        },
+        {
+          "calendarEventId": "9a35",
+          "date": "2033-12-24T19:00:00.000Z",
+          "modified": false
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "b5b1",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-10-26T21:00:00.000Z",
+      "end": "2024-10-27T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "7161",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-11-02T21:00:00.000Z",
+      "end": "2024-11-03T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "f405",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-11-09T21:00:00.000Z",
+      "end": "2024-11-10T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "1aaa",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-11-16T21:00:00.000Z",
+      "end": "2024-11-17T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "c628",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-11-23T21:00:00.000Z",
+      "end": "2024-11-24T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "96cc",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-12-07T21:00:00.000Z",
+      "end": "2024-12-08T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "e51f",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-11-30T21:00:00.000Z",
+      "end": "2024-12-01T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "c347",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-12-21T21:00:00.000Z",
+      "end": "2024-12-22T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "5016",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-12-14T21:00:00.000Z",
+      "end": "2024-12-15T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "5aff",
+      "title": "Do groceries",
+      "description": "Make sure I do groceries every week",
+      "start": "2024-12-28T21:00:00.000Z",
+      "end": "2024-12-29T22:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "75ec"
+    },
+    {
+      "id": "57a2",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2024-10-19T20:00:00.000Z",
+      "end": "2024-10-19T20:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "a0c0",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2024-11-19T20:00:00.000Z",
+      "end": "2024-11-19T20:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "8955",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2024-12-19T20:00:00.000Z",
+      "end": "2024-12-19T20:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "5e7f",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-04-19T21:00:00.000Z",
+      "end": "2025-04-19T21:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "3b05",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-01-30T20:00:00.000Z",
+      "end": "2025-01-30T20:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "998c",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-02-19T20:00:00.000Z",
+      "end": "2025-02-19T20:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "a47a",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-03-19T20:00:00.000Z",
+      "end": "2025-03-19T20:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "e261",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-05-19T21:00:00.000Z",
+      "end": "2025-05-19T21:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "bf75",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-06-19T21:00:00.000Z",
+      "end": "2025-06-19T21:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "f71b",
+      "title": "Pay bills",
+      "description": "Pay my monthly (20th of the month) bills",
+      "start": "2025-07-19T21:00:00.000Z",
+      "end": "2025-07-19T21:30:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "297e"
+    },
+    {
+      "id": "0c88",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2024-12-24T19:00:00.000Z",
+      "end": "2024-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "b563",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2025-12-24T19:00:00.000Z",
+      "end": "2025-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "f5bd",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2026-12-24T19:00:00.000Z",
+      "end": "2026-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "f06d",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2030-12-24T19:00:00.000Z",
+      "end": "2030-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "a473",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2027-12-24T19:00:00.000Z",
+      "end": "2027-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "e3a5",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2028-12-24T19:00:00.000Z",
+      "end": "2028-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "72d9",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2029-12-24T19:00:00.000Z",
+      "end": "2029-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "4e7a",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2031-12-24T19:00:00.000Z",
+      "end": "2031-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "1311",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2032-12-24T19:00:00.000Z",
+      "end": "2032-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    },
+    {
+      "id": "9a35",
+      "title": "Christmas Day",
+      "description": "",
+      "start": "2033-12-24T19:00:00.000Z",
+      "end": "2033-12-24T19:00:00.000Z",
+      "allDay": false,
+      "external": false,
+      "recurrenceId": "cacd"
+    }
+  ]
+}

@@ -15,6 +15,7 @@ import {
 } from "./atoms/CalendarEventRowAtoms";
 import { isToday } from "../util/date";
 import AddEditEventModal from "../modals/AddEditEventModal";
+import { useRecurrence } from "../hooks/useCalendarEvents";
 
 const locales = navigator.languages;
 
@@ -27,10 +28,17 @@ export default function CalendarEventRow({
   showDate?: boolean;
   oneLine?: boolean;
 }) {
+  const { data: recurrence } = useRecurrence(event.recurrenceId);
   const today = useMemo(() => isToday(new Date(event.start)), [event.start]);
 
   const [showEditEventModal, closeAddEdeitEventModal] = useModal(
-    () => <AddEditEventModal event={event} onClose={closeAddEdeitEventModal} />,
+    () => (
+      <AddEditEventModal
+        event={event}
+        recurrence={recurrence}
+        onClose={closeAddEdeitEventModal}
+      />
+    ),
     [],
   );
 
@@ -74,7 +82,7 @@ export default function CalendarEventRow({
       )}
 
       <CalendarTime>
-        <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />{" "}
+        <TimeSpan start={new Date(event.start)} end={new Date(event.end)} />
         {event.recurrenceId && <IconRepeat size="1em" />}
       </CalendarTime>
 

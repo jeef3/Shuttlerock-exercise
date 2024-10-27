@@ -29,7 +29,9 @@ function getForegroundColor({ $type = "transparent" }: ButtonProps) {
   }
 }
 
-const Button = styled.button<ButtonProps>`
+const Button = styled.button.attrs((props) => ({
+  type: props.type ?? "button",
+}))<ButtonProps>`
   --base: ${getBaseColor};
   --foreground: ${getForegroundColor};
 

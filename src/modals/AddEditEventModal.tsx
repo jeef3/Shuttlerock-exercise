@@ -1,32 +1,35 @@
 import { FormEvent, useCallback, useMemo } from "react";
+import { IconDeviceFloppy } from "@tabler/icons-react";
 
+import useForm from "../hooks/useForm";
+import { useMutateCalendarEvent } from "../hooks/useCalendarEvents";
+import { dateToInputDate } from "../util/date";
 import Modal from "../components/Modal";
 import ModalHeader from "../components/ModalHeader";
 import ModalFooter from "../components/ModalFooter";
-import useForm from "../hooks/useForm";
 import Button from "../components/Button";
-import { IconDeviceFloppy } from "@tabler/icons-react";
-import {
-  useMutateCalendarEvent,
-  useRecurrence,
-} from "../hooks/useCalendarEvents";
-import { dateToInputDate } from "../util/date";
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
 import { FormControls, FormRow } from "../components/atoms/Form";
-import type { CalendarEvent, CalendarEventViewModel } from "../types";
+
+import type {
+  CalendarEvent,
+  CalendarEventViewModel,
+  Recurrence,
+} from "../types";
 
 export default function AddEditEventModal({
   event,
+  recurrence,
   onClose,
 }: {
   event?: CalendarEvent | null;
+  recurrence?: Recurrence | null;
   onClose?: () => void;
 }) {
-  const { data: recurrence } = useRecurrence(event?.recurrenceId);
   const { mutateAsync: addOrUpdateEvent } = useMutateCalendarEvent();
 
-  const newEvent = useMemo(() => !event?.id, [event]);
+  const isNewEvent = useMemo(() => !event?.id, [event]);
 
   const defaultDates = useMemo(() => {
     const start = new Date();
@@ -42,12 +45,16 @@ export default function AddEditEventModal({
 
   const { formData, formState, handleChange, handleSubmit, setError } =
     useForm<CalendarEventViewModel>(
-      event ??
-        ({
-          start: defaultDates.start,
-          end: defaultDates.end,
-          allDay: false,
-        } as CalendarEventViewModel),
+      event
+        ? { ...event, repeat: recurrence?.repeat }
+        : {
+            title: "",
+            description: "",
+            start: defaultDates.start,
+            end: defaultDates.end,
+            allDay: false,
+            external: false,
+          },
     );
 
   const onSubmit = useCallback(
@@ -68,7 +75,7 @@ export default function AddEditEventModal({
       <form onSubmit={onSubmit}>
         <fieldset disabled={formState.isSubmitting}>
           <ModalHeader
-            title={newEvent ? "Add Event" : "Edit Event"}
+            title={isNewEvent ? "Add Event" : "Edit Event"}
             onClose={onClose}
           />
 
@@ -144,12 +151,12 @@ export default function AddEditEventModal({
                   {formState.isSubmitting ? (
                     <>
                       <IconDeviceFloppy size="1em" />{" "}
-                      {newEvent ? "Adding event…" : "Updating event…"}
+                      {isNewEvent ? "Adding event…" : "Updating event…"}
                     </>
                   ) : (
                     <>
                       <IconDeviceFloppy size="1em" />{" "}
-                      {newEvent ? "Add event" : "Update event"}
+                      {isNewEvent ? "Add event" : "Update event"}
                     </>
                   )}
                 </Button>

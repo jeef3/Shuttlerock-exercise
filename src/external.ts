@@ -30,7 +30,7 @@ function moonPhaseToEvent(phase: MoonPhase): CalendarEvent {
 }
 
 export const external = {
-  async moonPhase(year: string) {
+  async moonPhase(year: string): Promise<CalendarEvent[]> {
     return fetch(
       ` https://craigchamberlain.github.io/moon-data/api/moon-phase-data/${year}/`,
     )

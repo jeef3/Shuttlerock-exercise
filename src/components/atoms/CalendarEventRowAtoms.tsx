@@ -17,7 +17,7 @@ export const CalendarRowContainer = styled.div<{ $showDate?: boolean }>`
 
   display: grid;
   grid-template-columns: ${({ $showDate = false }) =>
-      $showDate && "[date] auto"} [time] 160px [detail] 1fr [edit] auto;
+      $showDate && "[date] auto"} [time] 170px [detail] 1fr [edit] auto;
   align-items: center;
   align-content: center;
 `;

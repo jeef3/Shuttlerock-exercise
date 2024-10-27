@@ -1,5 +1,7 @@
+import { Calendar } from "dayzed";
 import { CalendarEvent, Recurrence, RecurrenceFrequency } from "./types";
 import { generateRecurring } from "./util/recurrence";
+import { recurrenceService } from "./util/recurrenceService";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -31,20 +33,18 @@ export const api = {
       return send<CalendarEvent>(`/events/${id}`, "GET");
     },
 
-    async create(event: CalendarEvent, repeat?: RecurrenceFrequency) {
-      // This would normally be done server-side, and transactional.
+    async create(
+      event: Omit<CalendarEvent, "id">,
+      repeat?: RecurrenceFrequency,
+    ): Promise<CalendarEvent> {
+      // This would normally be done server-side, and transactionally.
       if (repeat) {
-        console.log("Repeating", repeat);
         const slots = generateRecurring(new Date(event.start), repeat);
 
-        const recurrence = await send<Partial<Recurrence>, Recurrence>(
-          "/recurrences",
-          "POST",
-          {
-            repeat,
-            recurrences: [],
-          },
-        );
+        const recurrence = await api.recurrences.create({
+          repeat,
+          recurrences: [],
+        });
 
         event.recurrenceId = recurrence.id;
 
@@ -64,7 +64,7 @@ export const api = {
 
         // Create all the new events
         const updatedEvents = await Promise.all(
-          repeatEvents.map((e) => send("/events", "POST", e)),
+          repeatEvents.map((e) => api.events.create(e)),
         );
 
         // And update the recurrence
@@ -73,25 +73,106 @@ export const api = {
           date: e.start,
           modified: false,
         }));
-
-        await send<Recurrence>(
-          `/recurrences/${recurrence.id}`,
-          "PUT",
-          recurrence,
-        );
+        await api.recurrences.update(recurrence);
 
         return updatedEvents[0];
       } else {
-        return send<CalendarEvent>("/events", "POST", event);
+        return send<Omit<CalendarEvent, "id">, CalendarEvent>(
+          "/events",
+          "POST",
+          event,
+        );
       }
     },
 
-    async update(event: CalendarEvent) {
-      return send<CalendarEvent>(`/events/${event.id}`, "PUT", event);
+    async update(
+      event: CalendarEvent,
+      repeat?: RecurrenceFrequency,
+      thisEventOnly: boolean = true,
+    ) {
+      if (thisEventOnly) {
+        if (event.recurrenceId) {
+          const recurrence = await api.recurrences.details(event.recurrenceId);
+
+          const index = recurrence.recurrences.findIndex(
+            (r) => r.calendarEventId === event.id,
+          );
+          recurrence.recurrences[index].modified = true;
+
+          await api.recurrences.update(recurrence);
+        }
+
+        return send<CalendarEvent>(`/events/${event.id}`, "PUT", event);
+      }
+
+      if (repeat) {
+        const recurrence = await (event.recurrenceId
+          ? api.recurrences.details(event.recurrenceId)
+          : api.recurrences.create({
+              repeat,
+              recurrences: [],
+            }));
+
+        if (repeat != recurrence.repeat) {
+          // TODO: The frequency has changed or is newly created. Generate the
+          // repeats.
+        }
+
+        const recurrencesToUpdate = recurrence.recurrences.filter(
+          (r) =>
+            !thisEventOnly ||
+            new Date(r.date).getTime() > new Date(event.start).getTime(),
+        );
+
+        const updatedEvents = await Promise.all(
+          recurrencesToUpdate.map(async (r) => {
+            const existing = await api.events.details(r.calendarEventId);
+
+            return send<CalendarEvent>(`/events/${existing.id}`, "PUT", {
+              ...existing,
+              title: event.title,
+              description: event.description,
+            });
+          }),
+        );
+
+        return updatedEvents[0];
+      } else if (!repeat && event.recurrenceId) {
+        // This event _was_ repeating, now we're removing that.
+        const recurrence = await api.recurrences.details(event.recurrenceId);
+
+        // Delete all recurrences after this events date
+      } else {
+        return send<CalendarEvent>(`/events/${event.id}`, "PUT", event);
+      }
     },
 
-    async delete(id: string) {
-      return send(`/events/${id}`, "DELETE");
+    async delete(id: string, deleteFutureEvents: boolean = false) {
+      const calendarEvent = await api.events.details(id);
+
+      if (calendarEvent.recurrenceId) {
+        const recurrence = await api.recurrences.details(
+          calendarEvent.recurrenceId,
+        );
+
+        const { updatedRecurrences, eventsToDelete } =
+          recurrenceService.deleteEvent(recurrence, id, deleteFutureEvents);
+
+        if (!updatedRecurrences) {
+          await api.recurrences.delete(recurrence.id);
+        } else {
+          await api.recurrences.update({
+            ...recurrence,
+            recurrences: updatedRecurrences,
+          });
+        }
+
+        await Promise.all(
+          eventsToDelete.map((eventId) => send(`/events/${eventId}`, "DELETE")),
+        );
+      } else {
+        return send(`/events/${id}`, "DELETE");
+      }
     },
   },
 
@@ -104,8 +185,12 @@ export const api = {
       return send<Recurrence>(`/recurrences/${id}`, "GET");
     },
 
-    async create(recurrence: Recurrence) {
-      return send<Recurrence>("/recurrences", "POST", recurrence);
+    async create(recurrence: Omit<Recurrence, "id">) {
+      return send<Omit<Recurrence, "id">, Recurrence>(
+        "/recurrences",
+        "POST",
+        recurrence,
+      );
     },
 
     async update(recurrence: Recurrence) {

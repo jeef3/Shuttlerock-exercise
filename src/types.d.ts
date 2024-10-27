@@ -1,14 +1,18 @@
 export type RecurrenceFrequency = "weekly" | "monthly" | "yearly";
 
+export interface RecurrenceCalendarEvent {
+  /**
+   * If `null`, the event has been deleted.
+   */
+  calendarEventId: string | null;
+  date: string;
+  modified: boolean;
+}
 export interface Recurrence {
   id: string;
 
   repeat: RecurrenceFrequency;
-  recurrences: {
-    calendarEventId: string;
-    date: string;
-    modified: boolean;
-  }[];
+  recurrences: RecurrenceCalendarEvent[];
 }
 
 export interface CalendarEvent {
@@ -41,5 +45,10 @@ export interface MoonPhase {
 }
 
 export interface CalendarEventViewModel extends CalendarEvent {
+  id?: string;
   repeat?: RecurrenceFrequency;
+}
+
+export interface DeleteCalendarEventViewModel extends CalendarEvent {
+  deleteFutureEvents: boolean;
 }

@@ -1,4 +1,4 @@
-# Shuttlerock Exercise
+# Calendar Exercise
 
 ## Start
 
